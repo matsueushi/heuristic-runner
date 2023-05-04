@@ -15,4 +15,11 @@ export const MOCK_TESTCASES = [
     score: 234,
     baseScore: 10,
   }),
+  new TestCase({
+    seed: 2,
+    input: "12 2 1",
+    output: "3 b c d",
+    score: 2,
+    baseScore: 2,
+  }),
 ];

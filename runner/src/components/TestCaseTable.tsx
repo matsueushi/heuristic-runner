@@ -9,10 +9,14 @@ import {
   Paper,
 } from "@mui/material";
 
+import { TestCase } from "./TestCase";
 import TestCaseRow from "./TestCaseRow";
-import { MOCK_TESTCASES } from "./MockTestCase";
 
-export default function TestCaseTable() {
+interface TestCaseTableProps {
+  testCases: TestCase[];
+}
+
+function TestCaseTable({ testCases }: TestCaseTableProps) {
   return (
     <Box
       sx={{
@@ -37,8 +41,8 @@ export default function TestCaseTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {MOCK_TESTCASES.map((testCase) => (
-              <TestCaseRow testCase={testCase} />
+            {testCases.map((testCase) => (
+              <TestCaseRow key={testCase.seed} testCase={testCase} />
             ))}
           </TableBody>
         </Table>
@@ -46,3 +50,5 @@ export default function TestCaseTable() {
     </Box>
   );
 }
+
+export default TestCaseTable;

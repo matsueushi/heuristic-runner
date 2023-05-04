@@ -1,17 +1,13 @@
 import "./App.css";
-import { api } from "./api";
-
-function invoke() {
-  console.log(api.post("test", { n: 1 }));
-}
+import Header from "./Header";
+import Invoker from "./Invoker";
 
 function App() {
   return (
-    <>
-      <div className="axios">
-        <button onClick={() => invoke()}>invoke</button>
-      </div>
-    </>
+    <div className="App">
+      <Header />
+      <Invoker />
+    </div>
   );
 }
 

@@ -1,8 +1,8 @@
-import './App.css'
-import { api } from './api'
+import "./App.css";
+import { api } from "./api";
 
 function invoke() {
-  console.log(api.get('posts'));
+  console.log(api.post("posts", { title: "foo", body: "bar", userId: 1 }));
 }
 
 function App() {
@@ -10,9 +10,9 @@ function App() {
     <>
       <div className="axios">
         <button onClick={() => invoke()}>invoke</button>
-      </div >
+      </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

@@ -6,13 +6,13 @@ export const MOCK_TESTCASES = [
     input: "3 4 3",
     output: "4 54 1 2",
     score: 50,
-    originalScore: 100,
+    baseScore: 100,
   }),
   new TestCase({
     seed: 1,
     input: "4 2 1",
     output: "a b c d",
     score: 234,
-    originalScore: 10,
+    baseScore: 10,
   }),
 ];

@@ -10,7 +10,7 @@ import { MOCK_TESTCASES } from "./MockTestCase";
 
 const test_cases = MOCK_TESTCASES;
 
-export default function DenseTable() {
+export default function TestCaseTable() {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
@@ -18,7 +18,8 @@ export default function DenseTable() {
           <TableRow>
             <TableCell>Seed</TableCell>
             <TableCell align="right">Score</TableCell>
-            <TableCell align="right">OriginalScore</TableCell>
+            <TableCell align="right">BaseScore</TableCell>
+            <TableCell align="right">Diff</TableCell>
             <TableCell align="right">Input</TableCell>
             <TableCell align="right">Output</TableCell>
           </TableRow>
@@ -33,7 +34,8 @@ export default function DenseTable() {
                 {row.seed}
               </TableCell>
               <TableCell align="right">{row.score}</TableCell>
-              <TableCell align="right">{row.originalScore}</TableCell>
+              <TableCell align="right">{row.baseScore}</TableCell>
+              <TableCell align="right">{row.score - row.baseScore}</TableCell>
               <TableCell align="right">{row.input}</TableCell>
               <TableCell align="right">{row.output}</TableCell>
             </TableRow>

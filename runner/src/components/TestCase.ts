@@ -3,7 +3,7 @@ export class TestCase {
   input: string = "";
   output: string = "";
   score: number = 0;
-  originalScore: number = 0;
+  baseScore: number = 0;
 
   constructor(initializer?: any) {
     if (!initializer) return;
@@ -11,7 +11,6 @@ export class TestCase {
     if (initializer.input) this.input = initializer.input;
     if (initializer.output) this.output = initializer.output;
     if (initializer.score) this.score = initializer.score;
-    if (initializer.originalScore)
-      this.originalScore = initializer.originalScore;
+    if (initializer.baseScore) this.baseScore = initializer.baseScore;
   }
 }

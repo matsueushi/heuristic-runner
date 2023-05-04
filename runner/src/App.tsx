@@ -1,13 +1,13 @@
-import Header from "./Header";
-import DenseTable from "./Table";
-import Invoker from "./Invoker";
+import Header from "./components/Header";
+import TestCaseTable from "./components/TestCaseTable";
+import Controllers from "./components/Controllers";
 
 function App() {
   return (
     <div className="App">
       <Header />
-      <Invoker />
-      <DenseTable />
+      <Controllers />
+      <TestCaseTable />
     </div>
   );
 }

@@ -12,7 +12,7 @@ function update() {
 
 function Controllers() {
   return (
-    <div className="lambda" style={{ width: "100%" }}>
+    <div className="controllers" style={{ width: "100%" }}>
       <Box
         sx={{
           display: "flex",
@@ -27,11 +27,11 @@ function Controllers() {
           run
         </Button>
         <Button variant="outlined" onClick={() => update()}>
-          update
+          update basescore
         </Button>
         <FormControlLabel
           control={<Switch defaultChecked />}
-          label="Flip Score diff"
+          label="Flip Diff"
         />
       </Box>
     </div>

@@ -1,47 +1,48 @@
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
+import {
+  Box,
+  Table,
+  TableContainer,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+  Paper,
+} from "@mui/material";
 
+import TestCaseRow from "./TestCaseRow";
 import { MOCK_TESTCASES } from "./MockTestCase";
-
-const test_cases = MOCK_TESTCASES;
 
 export default function TestCaseTable() {
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Seed</TableCell>
-            <TableCell align="right">Score</TableCell>
-            <TableCell align="right">BaseScore</TableCell>
-            <TableCell align="right">Diff</TableCell>
-            <TableCell align="right">Input</TableCell>
-            <TableCell align="right">Output</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {test_cases.map((row) => (
-            <TableRow
-              key={row.seed}
-              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">
-                {row.seed}
-              </TableCell>
-              <TableCell align="right">{row.score}</TableCell>
-              <TableCell align="right">{row.baseScore}</TableCell>
-              <TableCell align="right">{row.score - row.baseScore}</TableCell>
-              <TableCell align="right">{row.input}</TableCell>
-              <TableCell align="right">{row.output}</TableCell>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "row",
+        p: 1,
+        m: 1,
+        bgcolor: "background.paper",
+        borderRadius: 1,
+      }}
+    >
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
+          <TableHead>
+            <TableRow>
+              <TableCell>Seed</TableCell>
+              <TableCell align="right">Score</TableCell>
+              <TableCell align="right">BaseScore</TableCell>
+              <TableCell align="right">Diff</TableCell>
+              <TableCell align="right">Input</TableCell>
+              <TableCell align="right">Output</TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {MOCK_TESTCASES.map((testCase) => (
+              <TestCaseRow testCase={testCase} />
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Box>
   );
 }

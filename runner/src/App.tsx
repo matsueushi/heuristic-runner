@@ -2,7 +2,7 @@ import "./App.css";
 import { api } from "./api";
 
 function invoke() {
-  console.log(api.post("posts", { title: "foo", body: "bar", userId: 1 }));
+  console.log(api.post("test", { n: 1 }));
 }
 
 function App() {

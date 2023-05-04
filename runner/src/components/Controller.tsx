@@ -1,20 +1,13 @@
 import { Button, Box, FormControlLabel, Switch } from "@mui/material";
 // import { api } from "./api";
 
-function handleRunClick() {
-  // console.log(api.post("test", { n: 1 }));
-  console.log("run");
+interface ControllerProps {
+  onRunning: () => void;
+  onUpdating: () => void;
+  onFlipping: () => void;
 }
 
-function handleUpdateClick() {
-  console.log("update");
-}
-
-function handleFlipChange() {
-  console.log("flip");
-}
-
-function Controller() {
+function Controller({ onRunning, onUpdating, onFlipping }: ControllerProps) {
   return (
     <div className="controller" style={{ width: "100%" }}>
       <Box
@@ -27,15 +20,15 @@ function Controller() {
           borderRadius: 1,
         }}
       >
-        <Button variant="contained" onClick={() => handleRunClick()}>
+        <Button variant="contained" onClick={onRunning}>
           run
         </Button>
-        <Button variant="outlined" onClick={() => handleUpdateClick()}>
+        <Button variant="outlined" onClick={onUpdating}>
           update basescore
         </Button>
         <FormControlLabel
           control={<Switch defaultChecked />}
-          onChange={handleFlipChange}
+          onChange={onFlipping}
           label="Flip Diff"
         />
       </Box>

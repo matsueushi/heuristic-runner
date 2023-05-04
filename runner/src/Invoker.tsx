@@ -1,16 +1,28 @@
-import { Button } from "@mui/material";
-import { api } from "./api";
+import { Button, Box } from "@mui/material";
+// import { api } from "./api";
 
 function invoke() {
-  console.log(api.post("test", { n: 1 }));
+  // console.log(api.post("test", { n: 1 }));
+  console.log("invoked");
 }
 
 function Invoker() {
   return (
-    <div className="axios">
-      <Button variant="outlined" onClick={() => invoke()}>
-        invoke
-      </Button>
+    <div className="lambda" style={{ width: "100%" }}>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          p: 1,
+          m: 1,
+          bgcolor: "background.paper",
+          borderRadius: 1,
+        }}
+      >
+        <Button variant="outlined" onClick={() => invoke()}>
+          run
+        </Button>
+      </Box>
     </div>
   );
 }

@@ -19,7 +19,7 @@ function Controller({ onRunning, onUpdating, onFlipping }: ControllerProps) {
       <FormControlLabel
         control={<Switch defaultChecked />}
         onChange={onFlipping}
-        label="Flip Diff"
+        label="Maximize score"
       />
     </Box>
   );

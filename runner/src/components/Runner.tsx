@@ -12,11 +12,15 @@ function Runner() {
 
   function handleRunClick() {
     // console.log(api.post("test", { n: 1 }));
+    console.log("run");
     setTestCases(MOCK_TESTCASES);
   }
 
   function handleUpdateClick() {
-    console.log("update");
+    const updatedTestCases = testCases.map((c) => {
+      return new TestCase({ ...c, baseScore: c.score });
+    });
+    setTestCases(updatedTestCases);
   }
 
   function handleFlipChange() {

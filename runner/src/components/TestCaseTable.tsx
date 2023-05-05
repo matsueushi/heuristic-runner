@@ -1,16 +1,8 @@
-import {
-  Box,
-  Table,
-  TableContainer,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-  Paper,
-} from "@mui/material";
+import { Box, Table, TableContainer, TableBody, Paper } from "@mui/material";
 
 import { TestCase } from "./TestCase";
-import TestCaseRow from "./TestCaseRow";
+import TestCaseTableRow from "./TestCaseTableRow";
+import TestCaseTableHead from "./TestCaseTableHead";
 
 interface TestCaseTableProps {
   testCases: TestCase[];
@@ -35,19 +27,10 @@ function TestCaseTable({ testCases, diffSign }: TestCaseTableProps) {
           size="small"
           aria-label="the test case table"
         >
-          <TableHead>
-            <TableRow>
-              <TableCell>Seed</TableCell>
-              <TableCell align="right">Score</TableCell>
-              <TableCell align="right">BaseScore</TableCell>
-              <TableCell align="right">Diff</TableCell>
-              <TableCell align="right">Input</TableCell>
-              <TableCell align="right">Output</TableCell>
-            </TableRow>
-          </TableHead>
+          <TestCaseTableHead />
           <TableBody>
             {testCases.map((testCase) => (
-              <TestCaseRow
+              <TestCaseTableRow
                 key={testCase.seed}
                 testCase={testCase}
                 diffSign={diffSign}

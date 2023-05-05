@@ -8,7 +8,7 @@ interface TestCaseRowProps {
   diffSign: number;
 }
 
-function TestCaseRow({ testCase, diffSign }: TestCaseRowProps) {
+function TestCaseTableRow({ testCase, diffSign }: TestCaseRowProps) {
   return (
     <TableRow
       key={testCase.seed}
@@ -32,4 +32,4 @@ function TestCaseRow({ testCase, diffSign }: TestCaseRowProps) {
   );
 }
 
-export default TestCaseRow;
+export default TestCaseTableRow;

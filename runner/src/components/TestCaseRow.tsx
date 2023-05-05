@@ -1,16 +1,14 @@
-import { useState } from "react";
-
 import { TableRow, TableCell } from "@mui/material";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 
 import { TestCase } from "./TestCase";
 
 interface TestCaseRowProps {
   testCase: TestCase;
+  diffSign: number;
 }
 
-function TestCaseRow({ testCase }: TestCaseRowProps) {
-  const [sign, setSign] = useState<number>(1.0);
-
+function TestCaseRow({ testCase, diffSign }: TestCaseRowProps) {
   return (
     <TableRow
       key={testCase.seed}
@@ -22,10 +20,14 @@ function TestCaseRow({ testCase }: TestCaseRowProps) {
       <TableCell align="right">{testCase.score}</TableCell>
       <TableCell align="right">{testCase.baseScore}</TableCell>
       <TableCell align="right">
-        {sign * (testCase.score - testCase.baseScore)}
+        {diffSign * (testCase.score - testCase.baseScore)}
       </TableCell>
-      <TableCell align="right">{testCase.input}</TableCell>
-      <TableCell align="right">{testCase.output}</TableCell>
+      <TableCell align="right">
+        {testCase.input} <ContentCopyIcon fontSize="small" />
+      </TableCell>
+      <TableCell align="right">
+        {testCase.output} <ContentCopyIcon fontSize="small" />
+      </TableCell>
     </TableRow>
   );
 }

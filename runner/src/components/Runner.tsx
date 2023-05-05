@@ -7,11 +7,12 @@ import { TestCase } from "./TestCase";
 import { MOCK_TESTCASES } from "./MockTestCase";
 
 function Runner() {
+  const [diffSign, setDiffSign] = useState<number>(1.0);
   const [testCases, setTestCases] = useState<TestCase[]>(MOCK_TESTCASES);
 
   function handleRunClick() {
     // console.log(api.post("test", { n: 1 }));
-    console.log("run");
+    setTestCases(MOCK_TESTCASES);
   }
 
   function handleUpdateClick() {
@@ -19,7 +20,7 @@ function Runner() {
   }
 
   function handleFlipChange() {
-    console.log("flip");
+    setDiffSign(-diffSign);
   }
 
   return (
@@ -29,7 +30,7 @@ function Runner() {
         onUpdating={handleUpdateClick}
         onFlipping={handleFlipChange}
       />
-      <TestCaseTable testCases={testCases} />
+      <TestCaseTable testCases={testCases} diffSign={diffSign} />
     </>
   );
 }

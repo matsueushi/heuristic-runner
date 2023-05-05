@@ -14,9 +14,10 @@ import TestCaseRow from "./TestCaseRow";
 
 interface TestCaseTableProps {
   testCases: TestCase[];
+  diffSign: number;
 }
 
-function TestCaseTable({ testCases }: TestCaseTableProps) {
+function TestCaseTable({ testCases, diffSign }: TestCaseTableProps) {
   return (
     <Box
       sx={{
@@ -42,7 +43,11 @@ function TestCaseTable({ testCases }: TestCaseTableProps) {
           </TableHead>
           <TableBody>
             {testCases.map((testCase) => (
-              <TestCaseRow key={testCase.seed} testCase={testCase} />
+              <TestCaseRow
+                key={testCase.seed}
+                testCase={testCase}
+                diffSign={diffSign}
+              />
             ))}
           </TableBody>
         </Table>

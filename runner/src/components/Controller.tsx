@@ -10,10 +10,10 @@ interface ControllerProps {
 function Controller({ onRunning, onUpdating, onFlipping }: ControllerProps) {
   return (
     <Box sx={{ p: 1, "& button": { p: 1, m: 1 } }}>
-      <Button variant="contained" onClick={onRunning}>
+      <Button variant="contained" size="small" onClick={onRunning}>
         run
       </Button>
-      <Button variant="outlined" onClick={onUpdating}>
+      <Button variant="outlined" size="small" onClick={onUpdating}>
         update basescore
       </Button>
       <FormControlLabel

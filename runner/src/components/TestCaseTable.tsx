@@ -30,7 +30,11 @@ function TestCaseTable({ testCases, diffSign }: TestCaseTableProps) {
       }}
     >
       <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
+        <Table
+          sx={{ minWidth: 650 }}
+          size="small"
+          aria-label="the test case table"
+        >
           <TableHead>
             <TableRow>
               <TableCell>Seed</TableCell>

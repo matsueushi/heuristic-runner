@@ -1,6 +1,6 @@
 import { TableRow, TableCell } from "@mui/material";
-import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 
+import ContentCopyIconButton from "./ContentCopyIconButton";
 import { TestCase } from "./TestCase";
 
 interface TestCaseRowProps {
@@ -23,10 +23,10 @@ function TestCaseRow({ testCase, diffSign }: TestCaseRowProps) {
         {diffSign * (testCase.score - testCase.baseScore)}
       </TableCell>
       <TableCell align="right">
-        {testCase.input} <ContentCopyIcon fontSize="small" />
+        {testCase.input} <ContentCopyIconButton text={testCase.input} />
       </TableCell>
       <TableCell align="right">
-        {testCase.output} <ContentCopyIcon fontSize="small" />
+        {testCase.output} <ContentCopyIconButton text={testCase.input} />
       </TableCell>
     </TableRow>
   );

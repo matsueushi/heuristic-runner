@@ -3,22 +3,22 @@ import { TestCase } from "./TestCase";
 export const MOCK_TESTCASES = [
   new TestCase({
     seed: 0,
-    input: "3 4 3",
-    output: "4 54 1 2",
+    input: "2",
+    output: "",
     score: 50,
     baseScore: 100,
   }),
   new TestCase({
     seed: 1,
-    input: "4 2 1",
-    output: "a b c d",
+    input: "4",
+    output: "",
     score: 234,
     baseScore: 10,
   }),
   new TestCase({
     seed: 2,
-    input: "12 2 1",
-    output: "3 b c d",
+    input: "3",
+    output: "",
     score: 2,
     baseScore: 2,
   }),

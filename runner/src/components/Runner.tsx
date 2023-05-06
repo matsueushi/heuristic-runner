@@ -4,7 +4,7 @@ import TestCaseTable from "./TestCaseTable";
 import LambdaExecutor from "./LambdaExecutor";
 import { TestCase, reflectRunResult, updateBaseScore } from "./TestCase";
 import { MOCK_TESTCASES } from "./MockTestCase";
-import { Grid } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 
 function Runner() {
   const [testCases, setTestCases] = useState<TestCase[]>(MOCK_TESTCASES);
@@ -27,15 +27,15 @@ function Runner() {
 
   return (
     <>
-      <Grid container spacing={1}>
-        <Grid>
+      <Grid container>
+        <Grid m={2}>
           <LambdaExecutor
             onRunning={handleRunClick}
             onUpdating={handleUpdateClick}
             onFlipping={handleFlipChange}
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid m={2} item xs={12}>
           <TestCaseTable testCases={testCases} diffSign={diffSign} />
         </Grid>
       </Grid>

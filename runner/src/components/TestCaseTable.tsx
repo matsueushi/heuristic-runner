@@ -15,8 +15,6 @@ function TestCaseTable({ testCases, diffSign }: TestCaseTableProps) {
       sx={{
         display: "flex",
         flexDirection: "row",
-        p: 1,
-        m: 1,
         bgcolor: "background.paper",
         borderRadius: 1,
       }}

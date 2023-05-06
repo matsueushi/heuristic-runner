@@ -11,14 +11,7 @@ interface TestCaseTableProps {
 
 function TestCaseTable({ testCases, diffSign }: TestCaseTableProps) {
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "row",
-        bgcolor: "background.paper",
-        borderRadius: 1,
-      }}
-    >
+    <Box>
       <TableContainer component={Paper}>
         <Table
           sx={{ minWidth: 650 }}

@@ -27,22 +27,20 @@ function Runner() {
   }
 
   return (
-    <>
-      <Grid container spacing={2}>
-        <Grid item m={2} xs={3}>
-          <LambdaExecutor onRunning={handleRunClick} />
-        </Grid>
-        <Grid item m={2} xs={6}>
-          <ScoreExplorer
-            onUpdating={handleUpdateClick}
-            onFlipping={handleFlipChange}
-          />
-        </Grid>
-        <Grid item m={2} xs={12}>
-          <TestCaseTable testCases={testCases} diffSign={diffSign} />
-        </Grid>
+    <Grid container spacing={2}>
+      <Grid item m={2} xs={3}>
+        <LambdaExecutor onRunning={handleRunClick} />
       </Grid>
-    </>
+      <Grid item m={2}>
+        <ScoreExplorer
+          onUpdating={handleUpdateClick}
+          onFlipping={handleFlipChange}
+        />
+      </Grid>
+      <Grid item m={2} xs={12}>
+        <TestCaseTable testCases={testCases} diffSign={diffSign} />
+      </Grid>
+    </Grid>
   );
 }
 

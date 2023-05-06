@@ -18,7 +18,9 @@ function LambdaExecutor({ onRunning }: LambdaExecutorProps) {
       <Button variant="contained" size="small" onClick={handleRunClick}>
         run
       </Button>
-      <Typography>Last update: {lastRun}</Typography>
+      <Typography>
+        Last update: <b>{lastRun}</b>
+      </Typography>
     </Box>
   );
 }

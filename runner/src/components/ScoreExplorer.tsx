@@ -8,28 +8,47 @@ import {
 } from "@mui/material";
 
 interface ScoreExplorerProps {
+  testCaseCount: number;
+  score: number;
+  baseScore: number;
   onUpdating: () => void;
   onFlipping: () => void;
 }
 
-function ScoreExplorer({ onUpdating, onFlipping }: ScoreExplorerProps) {
+function ScoreExplorer({
+  testCaseCount,
+  score,
+  baseScore,
+  onUpdating,
+  onFlipping,
+}: ScoreExplorerProps) {
   return (
     <Box>
-      <Button variant="outlined" size="small" onClick={onUpdating}>
-        update basescore
-      </Button>
-      <FormControlLabel
-        control={<Switch defaultChecked />}
-        onChange={onFlipping}
-        label="Maximize score"
-        labelPlacement="start"
-      />
-
+      <Box>
+        <Button variant="outlined" size="small" onClick={onUpdating}>
+          update basescore
+        </Button>
+      </Box>
+      <Box>
+        <FormControlLabel
+          control={<Switch defaultChecked />}
+          onChange={onFlipping}
+          label="Maximize score"
+        />
+      </Box>
       <Paper>
         <Box p={2}>
-          <Typography>aaa</Typography>
-          <Typography>aaa</Typography>
-          <Typography>aaa</Typography>
+          <Typography>
+            Test Cases:
+            <b> {testCaseCount}</b>
+          </Typography>
+          <Typography>
+            Score:<b> {score}</b>
+          </Typography>
+          <Typography>
+            BaseScore: <b> {baseScore}</b>
+          </Typography>
+          <Typography>Diff: ???</Typography>
         </Box>
       </Paper>
     </Box>

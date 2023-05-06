@@ -33,6 +33,9 @@ function Runner() {
       </Grid>
       <Grid item m={2}>
         <ScoreExplorer
+          testCaseCount={testCases.length}
+          score={10}
+          baseScore={1356}
           onUpdating={handleUpdateClick}
           onFlipping={handleFlipChange}
         />

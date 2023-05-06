@@ -7,14 +7,11 @@ import Controller from "./Controller";
 import { TestCase } from "./TestCase";
 import { MOCK_TESTCASES } from "./MockTestCase";
 
-async function reflectRunResult(
-  testCase: TestCase,
-  seed: number
-): Promise<TestCase> {
-  if (testCase.seed === seed) {
+async function reflectRunResult(testCase: TestCase): Promise<TestCase> {
+  // 暫定的
+  if (testCase.seed === 0) {
     const data = { input: testCase.input };
     const response = await api.post("solve", data);
-    console.log(response);
     return new TestCase({
       ...testCase,
       score: response.data.score,
@@ -34,7 +31,7 @@ function Runner() {
   const [testCases, setTestCases] = useState<TestCase[]>(MOCK_TESTCASES);
 
   function handleRunClick() {
-    Promise.all(testCases.map((t) => reflectRunResult(t, 0))).then((result) =>
+    Promise.all(testCases.map(reflectRunResult)).then((result) =>
       setTestCases(result)
     );
   }

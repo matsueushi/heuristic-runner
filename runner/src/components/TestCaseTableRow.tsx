@@ -3,6 +3,15 @@ import { TableRow, TableCell } from "@mui/material";
 import ContentCopyIconButton from "./ContentCopyIconButton";
 import { TestCase } from "./TestCase";
 
+function formatLongText(text: string): string {
+  const th = 15;
+  if (text.length > th) {
+    return text.substring(0, th) + "...";
+  } else {
+    return text;
+  }
+}
+
 interface TestCaseRowProps {
   testCase: TestCase;
   diffSign: number;
@@ -23,10 +32,12 @@ function TestCaseTableRow({ testCase, diffSign }: TestCaseRowProps) {
         {diffSign * (testCase.score - testCase.baseScore)}
       </TableCell>
       <TableCell align="right">
-        {testCase.input} <ContentCopyIconButton text={testCase.input} />
+        {formatLongText(testCase.input)}{" "}
+        <ContentCopyIconButton text={testCase.input} />
       </TableCell>
       <TableCell align="right">
-        {testCase.output} <ContentCopyIconButton text={testCase.input} />
+        {formatLongText(testCase.output)}{" "}
+        <ContentCopyIconButton text={testCase.output} />
       </TableCell>
     </TableRow>
   );

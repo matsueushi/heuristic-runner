@@ -2,9 +2,10 @@ import { useState } from "react";
 
 import TestCaseTable from "./TestCaseTable";
 import LambdaExecutor from "./LambdaExecutor";
+import ScoreExplorer from "./ScoreExplorer";
 import { TestCase, reflectRunResult, updateBaseScore } from "./TestCase";
 import { MOCK_TESTCASES } from "./MockTestCase";
-import { Box, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
 
 function Runner() {
   const [testCases, setTestCases] = useState<TestCase[]>(MOCK_TESTCASES);
@@ -27,15 +28,17 @@ function Runner() {
 
   return (
     <>
-      <Grid container>
-        <Grid m={2}>
-          <LambdaExecutor
-            onRunning={handleRunClick}
+      <Grid container spacing={2}>
+        <Grid item m={2} xs={3}>
+          <LambdaExecutor onRunning={handleRunClick} />
+        </Grid>
+        <Grid item m={2} xs={6}>
+          <ScoreExplorer
             onUpdating={handleUpdateClick}
             onFlipping={handleFlipChange}
           />
         </Grid>
-        <Grid m={2} item xs={12}>
+        <Grid item m={2} xs={12}>
           <TestCaseTable testCases={testCases} diffSign={diffSign} />
         </Grid>
       </Grid>

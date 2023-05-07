@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Grid } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 
 import { api } from "../api";
 import { calculateSum } from "./utility";
@@ -42,35 +42,46 @@ function DashBoard() {
   const increased = testCases.filter((x) => x.score > x.baseScore).length;
   const noChange = testCases.filter((x) => x.score === x.baseScore).length;
   const decreased = testCases.filter((x) => x.score < x.baseScore).length;
-  const score = calculateSum(testCases.map((x) => x.score));
-  const baseScore = calculateSum(testCases.map((x) => x.baseScore));
+  const seeds = testCases.map((x) => x.seed);
+  const scores = testCases.map((x) => x.score);
+  const score = calculateSum(scores);
+  const baseScores = testCases.map((x) => x.baseScore);
+  const baseScore = calculateSum(baseScores);
   const diff = calculateSum(testCases.map((x) => x.score - x.baseScore));
 
   return (
     <Grid container spacing={2}>
-      <Grid item m={2} xs={3}>
-        <LambdaExecutor
-          onRunning={handleRunClick}
-          onUpdating={handleUpdateClick}
-        />
+      <Grid item xs={4}>
+        <Box m={2}>
+          <LambdaExecutor
+            onRunning={handleRunClick}
+            onUpdating={handleUpdateClick}
+          />
+        </Box>
       </Grid>
-      <Grid item m={2}>
-        <ScoreExplorer
-          testCaseCount={testCases.length}
-          increased={increased}
-          noChange={noChange}
-          decreased={decreased}
-          score={score}
-          baseScore={baseScore}
-          diff={diff}
-        />
+      <Grid item>
+        <Box m={2}>
+          <ScoreExplorer
+            testCaseCount={testCases.length}
+            increased={increased}
+            noChange={noChange}
+            decreased={decreased}
+            score={score}
+            baseScore={baseScore}
+            diff={diff}
+          />
+        </Box>
       </Grid>
-      <Grid item m={2}>
-        <Graph />
+      <Grid item>
+        <Box m={2}>
+          <Graph seeds={seeds} scores={scores} baseScores={baseScores} />
+        </Box>
       </Grid>
 
-      <Grid item m={2} xs={12}>
-        <TestCaseTable testCases={testCases} />
+      <Grid item xs={12}>
+        <Box m={2}>
+          <TestCaseTable testCases={testCases} />
+        </Box>
       </Grid>
     </Grid>
   );

@@ -1,4 +1,4 @@
-import { Box, Table, TableContainer, TableBody, Paper } from "@mui/material";
+import { Table, TableContainer, TableBody, Paper } from "@mui/material";
 
 import { TestCase } from "./TestCase";
 import TestCaseTableRow from "./TestCaseTableRow";
@@ -10,22 +10,20 @@ interface TestCaseTableProps {
 
 function TestCaseTable({ testCases }: TestCaseTableProps) {
   return (
-    <Box>
-      <TableContainer component={Paper}>
-        <Table
-          sx={{ minWidth: 650 }}
-          size="small"
-          aria-label="the test case table"
-        >
-          <TestCaseTableHead />
-          <TableBody>
-            {testCases.map((testCase) => (
-              <TestCaseTableRow key={testCase.seed} testCase={testCase} />
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </Box>
+    <TableContainer component={Paper}>
+      <Table
+        sx={{ minWidth: 650 }}
+        size="small"
+        aria-label="the test case table"
+      >
+        <TestCaseTableHead />
+        <TableBody>
+          {testCases.map((testCase) => (
+            <TestCaseTableRow key={testCase.seed} testCase={testCase} />
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 }
 

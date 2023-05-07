@@ -1,7 +1,7 @@
 import { IconButton, Tooltip } from "@mui/material";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 
-import { copyToClipboard } from "./utility";
+import { copyToClipboard } from "../services/utility";
 
 interface ContentCopyIconButtonProps {
   text: string;

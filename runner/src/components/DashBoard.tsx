@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Box, Grid } from "@mui/material";
 
-import { api } from "../api";
-import { calculateSum } from "./utility";
+import { api } from "../services/api";
+import { calculateSum } from "../services/utility";
 import Graph from "./Graph";
 import TestCaseTable from "./TestCaseTable";
 import LambdaExecutor from "./LambdaExecutor";
@@ -13,7 +13,7 @@ import { MOCK_TESTCASES } from "./MockTestCase";
 function DashBoard() {
   const [testCases, setTestCases] = useState<TestCase[]>(MOCK_TESTCASES);
 
-  function handleRunClick() {
+  function handleRunning() {
     Promise.all(
       testCases.map(async (testCase) => {
         // 暫定
@@ -32,14 +32,16 @@ function DashBoard() {
     ).then((result) => setTestCases(result));
   }
 
-  function handleUpdateClick() {
+  function handleUpdating() {
     const updatedTestCases = testCases.map((testCase) => {
       return new TestCase({ ...testCase, baseScore: testCase.score });
     });
     setTestCases(updatedTestCases);
   }
 
-  function handleDownloadClick() {
+  function handleLoading() {}
+
+  function handleDownloading() {
     const data = JSON.stringify(testCases, null, " ");
     const fileType = "text/json";
     const blob = new Blob([data], { type: fileType });
@@ -71,9 +73,10 @@ function DashBoard() {
       <Grid item xs={4}>
         <Box m={2}>
           <LambdaExecutor
-            onRunning={handleRunClick}
-            onUpdating={handleUpdateClick}
-            onDownload={handleDownloadClick}
+            onRunning={handleRunning}
+            onUpdating={handleUpdating}
+            onLoading={handleLoading}
+            onDownloading={handleDownloading}
           />
         </Box>
       </Grid>

@@ -1,6 +1,6 @@
 import { TableRow, TableCell } from "@mui/material";
 
-import { formatLongText } from "./utility";
+import { formatLongText } from "../services/utility";
 import ContentCopyIconButton from "./ContentCopyIconButton";
 import { TestCase } from "./TestCase";
 

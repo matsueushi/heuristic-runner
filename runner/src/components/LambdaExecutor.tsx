@@ -4,9 +4,14 @@ import { useState } from "react";
 interface LambdaExecutorProps {
   onRunning: () => void;
   onUpdating: () => void;
+  onDownload: () => void;
 }
 
-function LambdaExecutor({ onRunning, onUpdating }: LambdaExecutorProps) {
+function LambdaExecutor({
+  onRunning,
+  onUpdating,
+  onDownload,
+}: LambdaExecutorProps) {
   const [lastRun, setLastRun] = useState<string | undefined>(undefined);
 
   function handleRunClick() {
@@ -21,6 +26,12 @@ function LambdaExecutor({ onRunning, onUpdating }: LambdaExecutorProps) {
       </Button>
       <Button variant="outlined" size="small" onClick={onUpdating}>
         update basescore
+      </Button>
+      <Button variant="outlined" size="small">
+        load
+      </Button>
+      <Button variant="outlined" size="small" onClick={onDownload}>
+        download
       </Button>
       <Typography>
         Last update: <b>{lastRun}</b>

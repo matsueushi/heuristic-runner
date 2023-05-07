@@ -39,6 +39,23 @@ function DashBoard() {
     setTestCases(updatedTestCases);
   }
 
+  function handleDownloadClick() {
+    const data = JSON.stringify(testCases, null, " ");
+    const fileType = "text/json";
+    const blob = new Blob([data], { type: fileType });
+
+    const a = document.createElement("a");
+    a.download = "test_cases.json";
+    a.href = window.URL.createObjectURL(blob);
+    const clickEvt = new MouseEvent("click", {
+      view: window,
+      bubbles: true,
+      cancelable: true,
+    });
+    a.dispatchEvent(clickEvt);
+    a.remove();
+  }
+
   const increased = testCases.filter((x) => x.score > x.baseScore).length;
   const noChange = testCases.filter((x) => x.score === x.baseScore).length;
   const decreased = testCases.filter((x) => x.score < x.baseScore).length;
@@ -56,6 +73,7 @@ function DashBoard() {
           <LambdaExecutor
             onRunning={handleRunClick}
             onUpdating={handleUpdateClick}
+            onDownload={handleDownloadClick}
           />
         </Box>
       </Grid>

@@ -1,28 +1,41 @@
 import { useState } from "react";
 
+import { api } from "../api";
+import { calculateSum } from "./utility";
 import TestCaseTable from "./TestCaseTable";
 import LambdaExecutor from "./LambdaExecutor";
 import ScoreExplorer from "./ScoreExplorer";
-import { TestCase, reflectRunResult, updateBaseScore } from "./TestCase";
+import { TestCase } from "./TestCase";
 import { MOCK_TESTCASES } from "./MockTestCase";
 import { Grid } from "@mui/material";
-
-function calculateSum(arr: number[]): number {
-  return arr.reduce((a, b) => a + b, 0);
-}
 
 function Runner() {
   const [testCases, setTestCases] = useState<TestCase[]>(MOCK_TESTCASES);
   const [diffSign, setDiffSign] = useState<number>(1.0);
 
   function handleRunClick() {
-    Promise.all(testCases.map(reflectRunResult)).then((result) =>
-      setTestCases(result)
-    );
+    Promise.all(
+      testCases.map(async (testCase) => {
+        // 暫定
+        if (testCase.seed === 0) {
+          const data = { input: testCase.input };
+          const response = await api.post("solve", data);
+          return new TestCase({
+            ...testCase,
+            score: response.data.score,
+            output: response.data.output,
+          });
+        } else {
+          return testCase;
+        }
+      })
+    ).then((result) => setTestCases(result));
   }
 
   function handleUpdateClick() {
-    const updatedTestCases = testCases.map(updateBaseScore);
+    const updatedTestCases = testCases.map((testCase) => {
+      return new TestCase({ ...testCase, baseScore: testCase.score });
+    });
     setTestCases(updatedTestCases);
   }
 

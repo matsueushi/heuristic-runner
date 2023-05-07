@@ -4,7 +4,6 @@ import {
   Typography,
   FormControlLabel,
   Switch,
-  Paper,
 } from "@mui/material";
 import { useState } from "react";
 

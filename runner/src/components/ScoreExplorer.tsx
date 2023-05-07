@@ -1,4 +1,4 @@
-import { Box, Typography, Paper, Divider } from "@mui/material";
+import { Box, Typography, Divider } from "@mui/material";
 
 interface ScoreExplorerProps {
   testCaseCount: number;

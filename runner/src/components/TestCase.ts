@@ -1,5 +1,3 @@
-import { api } from "../api";
-
 export class TestCase {
   seed: number = 0;
   input: string = "";
@@ -15,23 +13,4 @@ export class TestCase {
     if (initializer.score) this.score = initializer.score;
     if (initializer.baseScore) this.baseScore = initializer.baseScore;
   }
-}
-
-export async function reflectRunResult(testCase: TestCase): Promise<TestCase> {
-  // 暫定的
-  if (testCase.seed === 0) {
-    const data = { input: testCase.input };
-    const response = await api.post("solve", data);
-    return new TestCase({
-      ...testCase,
-      score: response.data.score,
-      output: response.data.output,
-    });
-  } else {
-    return testCase;
-  }
-}
-
-export function updateBaseScore(testCase: TestCase): TestCase {
-  return new TestCase({ ...testCase, baseScore: testCase.score });
 }

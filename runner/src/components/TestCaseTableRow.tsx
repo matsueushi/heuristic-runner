@@ -1,16 +1,8 @@
 import { TableRow, TableCell } from "@mui/material";
 
+import { formatLongText } from "./utility";
 import ContentCopyIconButton from "./ContentCopyIconButton";
 import { TestCase } from "./TestCase";
-
-function formatLongText(text: string): string {
-  const th = 15;
-  if (text.length > th) {
-    return text.substring(0, th) + "...";
-  } else {
-    return text;
-  }
-}
 
 interface TestCaseRowProps {
   testCase: TestCase;

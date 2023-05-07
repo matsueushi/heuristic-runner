@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { Box, Grid } from "@mui/material";
 
 import { api } from "../services/api";
@@ -12,6 +12,7 @@ import { MOCK_TESTCASES } from "./MockTestCase";
 
 function DashBoard() {
   const [testCases, setTestCases] = useState<TestCase[]>(MOCK_TESTCASES);
+  const [file, setFile] = useState<File>();
 
   function handleRunning() {
     Promise.all(
@@ -39,7 +40,36 @@ function DashBoard() {
     setTestCases(updatedTestCases);
   }
 
-  function handleLoading() {}
+  function handleFileChanging(e: ChangeEvent<HTMLInputElement>) {
+    if (e.target.files) {
+      setFile(e.target.files[0]);
+    }
+  }
+
+  function convertToTestCases(data: any[]): TestCase[] {
+    const testCases: TestCase[] = data.map(convertToTestCase);
+    return testCases;
+  }
+
+  function convertToTestCase(item: any): TestCase {
+    return new TestCase(item);
+  }
+
+  function handleLoading() {
+    if (!file) {
+      return;
+    }
+    if (file.type != "application/json") {
+      return;
+    }
+    file
+      .text()
+      .then(JSON.parse)
+      .then(convertToTestCases)
+      .then(setTestCases)
+      // .then((res) => console.log(res))
+      .catch((err) => console.error(err));
+  }
 
   function handleDownloading() {
     const data = JSON.stringify(testCases, null, " ");
@@ -70,12 +100,12 @@ function DashBoard() {
 
   return (
     <Grid container spacing={2}>
-      <Grid item xs={4}>
+      <Grid item>
         <Box m={2}>
           <LambdaExecutor
             onRunning={handleRunning}
-            onUpdating={handleUpdating}
             onLoading={handleLoading}
+            onFileChanging={handleFileChanging}
             onDownloading={handleDownloading}
           />
         </Box>
@@ -90,6 +120,7 @@ function DashBoard() {
             score={score}
             baseScore={baseScore}
             diff={diff}
+            onUpdating={handleUpdating}
           />
         </Box>
       </Grid>

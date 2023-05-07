@@ -1,17 +1,17 @@
 import { Button, Box, Typography } from "@mui/material";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 
 interface LambdaExecutorProps {
   onRunning: () => void;
-  onUpdating: () => void;
   onLoading: () => void;
+  onFileChanging: (e: ChangeEvent<HTMLInputElement>) => void;
   onDownloading: () => void;
 }
 
 function LambdaExecutor({
   onRunning,
-  onUpdating,
   onLoading,
+  onFileChanging,
   onDownloading,
 }: LambdaExecutorProps) {
   const [lastRun, setLastRun] = useState<string | undefined>(undefined);
@@ -26,18 +26,16 @@ function LambdaExecutor({
       <Button variant="contained" size="small" onClick={handleRunClick}>
         run
       </Button>
-      <Button variant="outlined" size="small" onClick={onUpdating}>
-        update basescore
-      </Button>
+      <Typography>
+        Last update: <b>{lastRun}</b>
+      </Typography>
+      <input type="file" id="input" onChange={onFileChanging} />
       <Button variant="outlined" size="small" onClick={onLoading}>
         load
       </Button>
       <Button variant="outlined" size="small" onClick={onDownloading}>
         download
       </Button>
-      <Typography>
-        Last update: <b>{lastRun}</b>
-      </Typography>
     </Box>
   );
 }

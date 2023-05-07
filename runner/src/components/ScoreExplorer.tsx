@@ -1,4 +1,4 @@
-import { Box, Typography, Divider } from "@mui/material";
+import { Box, Typography, Divider, Stack } from "@mui/material";
 
 interface ScoreExplorerProps {
   testCaseCount: number;
@@ -20,32 +20,42 @@ function ScoreExplorer({
   diff,
 }: ScoreExplorerProps) {
   return (
-    <Box>
-      <Typography>
-        Test Cases:
-        <b> {testCaseCount}</b>
-      </Typography>
-      <Divider />
-      <Typography>
-        Increased: {increased} / {testCaseCount}
-      </Typography>
-      <Typography>
-        No change: {noChange} / {testCaseCount}
-      </Typography>
-      <Typography>
-        Decreased: {decreased} / {testCaseCount}
-      </Typography>
-      <Divider />
-      <Typography>
-        Score:<b> {score}</b>
-      </Typography>
-      <Typography>
-        BaseScore: <b> {baseScore}</b>
-      </Typography>
-      <Typography>
-        Diff: <b> {diff}</b>
-      </Typography>
-    </Box>
+    <Stack direction="row" spacing={2}>
+      <Box>
+        <Typography>Test Cases</Typography>
+        <Divider />
+        <Typography>Increased</Typography>
+        <Typography>No change</Typography>
+        <Typography>Decreased</Typography>
+        <Divider />
+        <Typography>Score</Typography>
+        <Typography>BaseScore</Typography>
+        <Typography>Diff</Typography>
+      </Box>
+      <Box>
+        <Typography>{testCaseCount}</Typography>
+        <Divider />
+        <Typography>
+          <b>{increased}</b>
+        </Typography>
+        <Typography>
+          <b>{noChange}</b>
+        </Typography>
+        <Typography>
+          <b>{decreased}</b>
+        </Typography>
+        <Divider />
+        <Typography>
+          <b>{score}</b>
+        </Typography>
+        <Typography>
+          <b>{baseScore}</b>
+        </Typography>
+        <Typography>
+          <b>{diff}</b>
+        </Typography>
+      </Box>
+    </Stack>
   );
 }
 

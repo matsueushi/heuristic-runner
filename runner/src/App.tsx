@@ -1,11 +1,11 @@
 import Header from "./components/Header";
-import Runner from "./components/Runner";
+import DashBoard from "./components/DashBoard";
 
 function App() {
   return (
     <div className="App">
       <Header />
-      <Runner />
+      <DashBoard />
     </div>
   );
 }

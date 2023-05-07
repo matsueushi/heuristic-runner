@@ -1,10 +1,4 @@
-import {
-  Button,
-  Box,
-  Typography,
-  FormControlLabel,
-  Switch,
-} from "@mui/material";
+import { Button, Box, Typography } from "@mui/material";
 import { useState } from "react";
 
 interface LambdaExecutorProps {

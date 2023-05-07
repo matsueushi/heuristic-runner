@@ -1,15 +1,16 @@
 import { useState } from "react";
+import { Grid } from "@mui/material";
 
 import { api } from "../api";
 import { calculateSum } from "./utility";
+import Graph from "./Graph";
 import TestCaseTable from "./TestCaseTable";
 import LambdaExecutor from "./LambdaExecutor";
 import ScoreExplorer from "./ScoreExplorer";
 import { TestCase } from "./TestCase";
 import { MOCK_TESTCASES } from "./MockTestCase";
-import { Grid } from "@mui/material";
 
-function Runner() {
+function DashBoard() {
   const [testCases, setTestCases] = useState<TestCase[]>(MOCK_TESTCASES);
 
   function handleRunClick() {
@@ -64,6 +65,9 @@ function Runner() {
           diff={diff}
         />
       </Grid>
+      <Grid item m={2}>
+        <Graph />
+      </Grid>
 
       <Grid item m={2} xs={12}>
         <TestCaseTable testCases={testCases} />
@@ -72,4 +76,4 @@ function Runner() {
   );
 }
 
-export default Runner;
+export default DashBoard;

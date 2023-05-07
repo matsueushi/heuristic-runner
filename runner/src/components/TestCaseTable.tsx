@@ -6,10 +6,9 @@ import TestCaseTableHead from "./TestCaseTableHead";
 
 interface TestCaseTableProps {
   testCases: TestCase[];
-  diffSign: number;
 }
 
-function TestCaseTable({ testCases, diffSign }: TestCaseTableProps) {
+function TestCaseTable({ testCases }: TestCaseTableProps) {
   return (
     <Box>
       <TableContainer component={Paper}>
@@ -21,11 +20,7 @@ function TestCaseTable({ testCases, diffSign }: TestCaseTableProps) {
           <TestCaseTableHead />
           <TableBody>
             {testCases.map((testCase) => (
-              <TestCaseTableRow
-                key={testCase.seed}
-                testCase={testCase}
-                diffSign={diffSign}
-              />
+              <TestCaseTableRow key={testCase.seed} testCase={testCase} />
             ))}
           </TableBody>
         </Table>

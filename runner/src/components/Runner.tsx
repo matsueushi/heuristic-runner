@@ -11,7 +11,6 @@ import { Grid } from "@mui/material";
 
 function Runner() {
   const [testCases, setTestCases] = useState<TestCase[]>(MOCK_TESTCASES);
-  const [diffSign, setDiffSign] = useState<number>(1.0);
 
   function handleRunClick() {
     Promise.all(
@@ -39,12 +38,18 @@ function Runner() {
     setTestCases(updatedTestCases);
   }
 
-  function handleFlipChange() {
-    setDiffSign(-diffSign);
+  function handleDiffSign() {
+    const updatedTestCases = testCases.map((testCase) => {
+      return new TestCase({ ...testCase, sign: -testCase.sign });
+    });
+    setTestCases(updatedTestCases);
   }
 
   const score = calculateSum(testCases.map((x) => x.score));
   const baseScore = calculateSum(testCases.map((x) => x.baseScore));
+  const diff = calculateSum(
+    testCases.map((x) => x.sign * (x.score - x.baseScore))
+  );
 
   return (
     <Grid container spacing={2}>
@@ -52,7 +57,7 @@ function Runner() {
         <LambdaExecutor
           onRunning={handleRunClick}
           onUpdating={handleUpdateClick}
-          onFlipping={handleFlipChange}
+          onFilpDiffSign={handleDiffSign}
         />
       </Grid>
       <Grid item m={2}>
@@ -60,11 +65,12 @@ function Runner() {
           testCaseCount={testCases.length}
           score={score}
           baseScore={baseScore}
+          diff={diff}
         />
       </Grid>
 
       <Grid item m={2} xs={12}>
-        <TestCaseTable testCases={testCases} diffSign={diffSign} />
+        <TestCaseTable testCases={testCases} />
       </Grid>
     </Grid>
   );

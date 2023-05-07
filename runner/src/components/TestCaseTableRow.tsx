@@ -6,10 +6,9 @@ import { TestCase } from "./TestCase";
 
 interface TestCaseRowProps {
   testCase: TestCase;
-  diffSign: number;
 }
 
-function TestCaseTableRow({ testCase, diffSign }: TestCaseRowProps) {
+function TestCaseTableRow({ testCase }: TestCaseRowProps) {
   return (
     <TableRow
       key={testCase.seed}
@@ -21,7 +20,7 @@ function TestCaseTableRow({ testCase, diffSign }: TestCaseRowProps) {
       <TableCell align="right">{testCase.score}</TableCell>
       <TableCell align="right">{testCase.baseScore}</TableCell>
       <TableCell align="right">
-        {diffSign * (testCase.score - testCase.baseScore)}
+        {testCase.sign * (testCase.score - testCase.baseScore)}
       </TableCell>
       <TableCell align="right">
         {formatLongText(testCase.input)}{" "}

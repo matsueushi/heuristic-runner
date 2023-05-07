@@ -4,12 +4,14 @@ interface ScoreExplorerProps {
   testCaseCount: number;
   score: number;
   baseScore: number;
+  diff: number;
 }
 
 function ScoreExplorer({
   testCaseCount,
   score,
   baseScore,
+  diff,
 }: ScoreExplorerProps) {
   return (
     <Box>
@@ -27,7 +29,9 @@ function ScoreExplorer({
       <Typography>
         BaseScore: <b> {baseScore}</b>
       </Typography>
-      <Typography>Diff: ???</Typography>
+      <Typography>
+        Diff: <b> {diff}</b>
+      </Typography>
     </Box>
   );
 }

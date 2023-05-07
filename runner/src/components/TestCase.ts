@@ -4,6 +4,7 @@ export class TestCase {
   output: string = "";
   score: number = 0;
   baseScore: number = 0;
+  sign: number = 1;
 
   constructor(initializer?: any) {
     if (!initializer) return;
@@ -12,5 +13,6 @@ export class TestCase {
     if (initializer.output) this.output = initializer.output;
     if (initializer.score) this.score = initializer.score;
     if (initializer.baseScore) this.baseScore = initializer.baseScore;
+    if (initializer.sign) this.sign = initializer.sign;
   }
 }

@@ -10,13 +10,13 @@ import { useState } from "react";
 interface LambdaExecutorProps {
   onRunning: () => void;
   onUpdating: () => void;
-  onFlipping: () => void;
+  onFilpDiffSign: () => void;
 }
 
 function LambdaExecutor({
   onRunning,
   onUpdating,
-  onFlipping,
+  onFilpDiffSign,
 }: LambdaExecutorProps) {
   const [lastRun, setLastRun] = useState<string | undefined>(undefined);
 
@@ -36,7 +36,7 @@ function LambdaExecutor({
       <Box>
         <FormControlLabel
           control={<Switch defaultChecked />}
-          onChange={onFlipping}
+          onChange={onFilpDiffSign}
           label="Maximize score"
         />
       </Box>

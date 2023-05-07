@@ -19,9 +19,7 @@ function TestCaseTableRow({ testCase }: TestCaseRowProps) {
       </TableCell>
       <TableCell align="right">{testCase.score}</TableCell>
       <TableCell align="right">{testCase.baseScore}</TableCell>
-      <TableCell align="right">
-        {testCase.sign * (testCase.score - testCase.baseScore)}
-      </TableCell>
+      <TableCell align="right">{testCase.score - testCase.baseScore}</TableCell>
       <TableCell align="right">
         {formatLongText(testCase.input)}{" "}
         <ContentCopyIconButton text={testCase.input} />

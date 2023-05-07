@@ -16,7 +16,7 @@ function Runner() {
     Promise.all(
       testCases.map(async (testCase) => {
         // 暫定
-        if (testCase.seed === 0) {
+        if (testCase.seed === 1) {
           const data = { input: testCase.input };
           const response = await api.post("solve", data);
           return new TestCase({
@@ -38,18 +38,12 @@ function Runner() {
     setTestCases(updatedTestCases);
   }
 
-  function handleDiffSign() {
-    const updatedTestCases = testCases.map((testCase) => {
-      return new TestCase({ ...testCase, sign: -testCase.sign });
-    });
-    setTestCases(updatedTestCases);
-  }
-
+  const increased = testCases.filter((x) => x.score > x.baseScore).length;
+  const noChange = testCases.filter((x) => x.score === x.baseScore).length;
+  const decreased = testCases.filter((x) => x.score < x.baseScore).length;
   const score = calculateSum(testCases.map((x) => x.score));
   const baseScore = calculateSum(testCases.map((x) => x.baseScore));
-  const diff = calculateSum(
-    testCases.map((x) => x.sign * (x.score - x.baseScore))
-  );
+  const diff = calculateSum(testCases.map((x) => x.score - x.baseScore));
 
   return (
     <Grid container spacing={2}>
@@ -57,12 +51,14 @@ function Runner() {
         <LambdaExecutor
           onRunning={handleRunClick}
           onUpdating={handleUpdateClick}
-          onFilpDiffSign={handleDiffSign}
         />
       </Grid>
       <Grid item m={2}>
         <ScoreExplorer
           testCaseCount={testCases.length}
+          increased={increased}
+          noChange={noChange}
+          decreased={decreased}
           score={score}
           baseScore={baseScore}
           diff={diff}

@@ -10,14 +10,9 @@ import { useState } from "react";
 interface LambdaExecutorProps {
   onRunning: () => void;
   onUpdating: () => void;
-  onFilpDiffSign: () => void;
 }
 
-function LambdaExecutor({
-  onRunning,
-  onUpdating,
-  onFilpDiffSign,
-}: LambdaExecutorProps) {
+function LambdaExecutor({ onRunning, onUpdating }: LambdaExecutorProps) {
   const [lastRun, setLastRun] = useState<string | undefined>(undefined);
 
   function handleRunClick() {
@@ -33,13 +28,6 @@ function LambdaExecutor({
       <Button variant="outlined" size="small" onClick={onUpdating}>
         update basescore
       </Button>
-      <Box>
-        <FormControlLabel
-          control={<Switch defaultChecked />}
-          onChange={onFilpDiffSign}
-          label="Maximize score"
-        />
-      </Box>
       <Typography>
         Last update: <b>{lastRun}</b>
       </Typography>

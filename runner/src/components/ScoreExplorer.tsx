@@ -2,6 +2,9 @@ import { Box, Typography, Divider } from "@mui/material";
 
 interface ScoreExplorerProps {
   testCaseCount: number;
+  increased: number;
+  noChange: number;
+  decreased: number;
   score: number;
   baseScore: number;
   diff: number;
@@ -9,6 +12,9 @@ interface ScoreExplorerProps {
 
 function ScoreExplorer({
   testCaseCount,
+  increased,
+  noChange,
+  decreased,
   score,
   baseScore,
   diff,
@@ -19,10 +25,17 @@ function ScoreExplorer({
         Test Cases:
         <b> {testCaseCount}</b>
       </Typography>
-      <Typography>Improvement: ??? / {testCaseCount}</Typography>
-      <Typography>No change ??? / {testCaseCount}</Typography>
-      <Typography>Deterioration: ??? / {testCaseCount}</Typography>
-      <Divider></Divider>
+      <Divider />
+      <Typography>
+        Increased: {increased} / {testCaseCount}
+      </Typography>
+      <Typography>
+        No change: {noChange} / {testCaseCount}
+      </Typography>
+      <Typography>
+        Decreased: {decreased} / {testCaseCount}
+      </Typography>
+      <Divider />
       <Typography>
         Score:<b> {score}</b>
       </Typography>

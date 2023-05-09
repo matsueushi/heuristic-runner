@@ -104,6 +104,7 @@ function DashBoard() {
         <Box m={2}>
           <LambdaExecutor
             onRunning={handleRunning}
+            onUpdating={handleUpdating}
             onLoading={handleLoading}
             onFileChanging={handleFileChanging}
             onDownloading={handleDownloading}
@@ -120,7 +121,6 @@ function DashBoard() {
             score={score}
             baseScore={baseScore}
             diff={diff}
-            onUpdating={handleUpdating}
           />
         </Box>
       </Grid>

@@ -3,6 +3,7 @@ import { ChangeEvent, useState } from "react";
 
 interface LambdaExecutorProps {
   onRunning: () => void;
+  onUpdating: () => void;
   onLoading: () => void;
   onFileChanging: (e: ChangeEvent<HTMLInputElement>) => void;
   onDownloading: () => void;
@@ -10,6 +11,7 @@ interface LambdaExecutorProps {
 
 function LambdaExecutor({
   onRunning,
+  onUpdating,
   onLoading,
   onFileChanging,
   onDownloading,
@@ -26,14 +28,17 @@ function LambdaExecutor({
       <Button variant="contained" size="small" onClick={handleRunClick}>
         run
       </Button>
+      <Button variant="contained" size="small" onClick={onUpdating}>
+        Update base
+      </Button>
       <Typography>
         Last update: <b>{lastRun}</b>
       </Typography>
       <input type="file" id="input" onChange={onFileChanging} />
-      <Button variant="outlined" size="small" onClick={onLoading}>
+      <Button variant="contained" size="small" onClick={onLoading}>
         load
       </Button>
-      <Button variant="outlined" size="small" onClick={onDownloading}>
+      <Button variant="contained" size="small" onClick={onDownloading}>
         download
       </Button>
     </Box>

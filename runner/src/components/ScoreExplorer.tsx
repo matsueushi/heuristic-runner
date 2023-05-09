@@ -1,4 +1,4 @@
-import { Box, Button, Typography, Divider, Stack } from "@mui/material";
+import { Box, Typography, Divider, Stack } from "@mui/material";
 
 interface ScoreExplorerProps {
   testCaseCount: number;
@@ -8,7 +8,6 @@ interface ScoreExplorerProps {
   score: number;
   baseScore: number;
   diff: number;
-  onUpdating: () => void;
 }
 
 function ScoreExplorer({
@@ -19,7 +18,6 @@ function ScoreExplorer({
   score,
   baseScore,
   diff,
-  onUpdating,
 }: ScoreExplorerProps) {
   return (
     <Box>
@@ -59,14 +57,6 @@ function ScoreExplorer({
           </Typography>
         </Box>
       </Stack>
-      <Button
-        variant="contained"
-        size="small"
-        sx={{ m: 1 }}
-        onClick={onUpdating}
-      >
-        Update base
-      </Button>
     </Box>
   );
 }

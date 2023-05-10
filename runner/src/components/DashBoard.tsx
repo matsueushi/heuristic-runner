@@ -105,9 +105,6 @@ function DashBoard() {
           <LambdaExecutor
             onRunning={handleRunning}
             onUpdating={handleUpdating}
-            onLoading={handleLoading}
-            onFileChanging={handleFileChanging}
-            onDownloading={handleDownloading}
           />
         </Box>
       </Grid>
@@ -132,7 +129,12 @@ function DashBoard() {
 
       <Grid item xs={12}>
         <Box m={2}>
-          <TestCaseTable testCases={testCases} />
+          <TestCaseTable
+            testCases={testCases}
+            onLoading={handleLoading}
+            onFileChanging={handleFileChanging}
+            onDownloading={handleDownloading}
+          />
         </Box>
       </Grid>
     </Grid>

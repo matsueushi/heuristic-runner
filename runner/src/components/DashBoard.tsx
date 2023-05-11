@@ -6,7 +6,6 @@ import { calculateSum } from "../services/utility";
 import Graph from "./Graph";
 import TestCaseTable from "./TestCaseTable";
 import LambdaExecutor from "./LambdaExecutor";
-import ScoreExplorer from "./ScoreExplorer";
 import { TestCase } from "./TestCase";
 import { MOCK_TESTCASES } from "./MockTestCase";
 
@@ -105,12 +104,6 @@ function DashBoard() {
           <LambdaExecutor
             onRunning={handleRunning}
             onUpdating={handleUpdating}
-          />
-        </Box>
-      </Grid>
-      <Grid item>
-        <Box m={2}>
-          <ScoreExplorer
             testCaseCount={testCases.length}
             increased={increased}
             noChange={noChange}

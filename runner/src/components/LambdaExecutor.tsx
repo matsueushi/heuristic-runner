@@ -1,9 +1,18 @@
-import { Button, Box, Typography, Stack, Divider } from "@mui/material";
+import {
+  Button,
+  Box,
+  FormControlLabel,
+  Typography,
+  Stack,
+  Divider,
+  Checkbox,
+} from "@mui/material";
 import { useState } from "react";
 
 interface LambdaExecutorProps {
   onRunning: () => void;
   onUpdating: () => void;
+  onFlipTestMode: () => void;
   testCaseCount: number;
   increased: number;
   noChange: number;
@@ -16,6 +25,7 @@ interface LambdaExecutorProps {
 function LambdaExecutor({
   onRunning,
   onUpdating,
+  onFlipTestMode,
   testCaseCount,
   increased,
   noChange,
@@ -39,6 +49,10 @@ function LambdaExecutor({
       <Button variant="contained" size="small" onClick={onUpdating}>
         Update base
       </Button>
+      <FormControlLabel
+        control={<Checkbox onChange={onFlipTestMode} />}
+        label="Test Mode"
+      />
       <Typography variant="body2">
         Last update: <b>{lastRun}</b>
       </Typography>

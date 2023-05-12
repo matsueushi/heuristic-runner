@@ -7,27 +7,35 @@ import Graph from "./Graph";
 import TestCaseTable from "./TestCaseTable";
 import LambdaExecutor from "./LambdaExecutor";
 import { TestCase } from "./TestCase";
-import { MOCK_TESTCASES } from "./MockTestCase";
 
 function DashBoard() {
-  const [testCases, setTestCases] = useState<TestCase[]>(MOCK_TESTCASES);
+  const [testCases, setTestCases] = useState<TestCase[]>([]);
   const [file, setFile] = useState<File>();
+  const [testMode, setTestMode] = useState<boolean>(false);
 
   function handleRunning() {
+    if (testMode) {
+      setTestCases(
+        testCases.map((testCase) => {
+          return new TestCase({
+            ...testCase,
+            score: Math.round(Math.random() * 100),
+          });
+        })
+      );
+      return;
+    }
+
     Promise.all(
       testCases.map(async (testCase) => {
         // 暫定
-        if (testCase.seed === 1) {
-          const data = { input: testCase.input };
-          const response = await api.post("solve", data);
-          return new TestCase({
-            ...testCase,
-            score: response.data.score,
-            output: response.data.output,
-          });
-        } else {
-          return testCase;
-        }
+        const data = { input: testCase.input };
+        const response = await api.post("solve", data);
+        return new TestCase({
+          ...testCase,
+          score: response.data.score,
+          output: response.data.output,
+        });
       })
     ).then((result) => setTestCases(result));
   }
@@ -37,6 +45,10 @@ function DashBoard() {
       return new TestCase({ ...testCase, baseScore: testCase.score });
     });
     setTestCases(updatedTestCases);
+  }
+
+  function handleTestMode() {
+    setTestMode(!testMode);
   }
 
   function handleFileChanging(e: ChangeEvent<HTMLInputElement>) {
@@ -104,6 +116,7 @@ function DashBoard() {
           <LambdaExecutor
             onRunning={handleRunning}
             onUpdating={handleUpdating}
+            onFlipTestMode={handleTestMode}
             testCaseCount={testCases.length}
             increased={increased}
             noChange={noChange}

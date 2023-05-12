@@ -39,7 +39,7 @@ function LambdaExecutor({
       <Button variant="contained" size="small" onClick={onUpdating}>
         Update base
       </Button>
-      <Typography>
+      <Typography variant="body2">
         Last update: <b>{lastRun}</b>
       </Typography>
       <Box m={1}>

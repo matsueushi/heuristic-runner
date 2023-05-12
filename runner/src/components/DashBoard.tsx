@@ -99,7 +99,7 @@ function DashBoard() {
 
   return (
     <Grid container spacing={2}>
-      <Grid item>
+      <Grid item xs={5}>
         <Box m={2}>
           <LambdaExecutor
             onRunning={handleRunning}

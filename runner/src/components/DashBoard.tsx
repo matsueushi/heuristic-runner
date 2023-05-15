@@ -1,17 +1,26 @@
 import { ChangeEvent, useState } from "react";
-import { Box, Grid } from "@mui/material";
+import {
+  Box,
+  Grid,
+  Typography,
+  Button,
+  Stack,
+  Checkbox,
+  FormControlLabel,
+} from "@mui/material";
 
 import { api } from "../services/api";
-import { calculateSum } from "../services/utility";
 import Graph from "./Graph";
 import TestCaseTable from "./TestCaseTable";
-import LambdaExecutor from "./LambdaExecutor";
 import { TestCase } from "./TestCase";
+import SummaryTableIndex from "./SummaryTableIndex";
+import SummaryTableSeries from "./SummaryTableSeries";
 
 function DashBoard() {
   const [testCases, setTestCases] = useState<TestCase[]>([]);
   const [file, setFile] = useState<File>();
   const [testMode, setTestMode] = useState<boolean>(false);
+  const [lastRun, setLastRun] = useState<string | undefined>(undefined);
 
   function handleRunning() {
     if (testMode) {
@@ -23,21 +32,21 @@ function DashBoard() {
           });
         })
       );
-      return;
+    } else {
+      Promise.all(
+        testCases.map(async (testCase) => {
+          // 暫定
+          const data = { input: testCase.input };
+          const response = await api.post("prod", data);
+          return new TestCase({
+            ...testCase,
+            score: response.data.score,
+            output: response.data.output,
+          });
+        })
+      ).then((result) => setTestCases(result));
     }
-
-    Promise.all(
-      testCases.map(async (testCase) => {
-        // 暫定
-        const data = { input: testCase.input };
-        const response = await api.post("prod", data);
-        return new TestCase({
-          ...testCase,
-          score: response.data.score,
-          output: response.data.output,
-        });
-      })
-    ).then((result) => setTestCases(result));
+    setLastRun(Date().toLocaleString());
   }
 
   function handleUpdating() {
@@ -99,32 +108,33 @@ function DashBoard() {
     a.remove();
   }
 
-  const increased = testCases.filter((x) => x.score > x.baseScore).length;
-  const noChange = testCases.filter((x) => x.score === x.baseScore).length;
-  const decreased = testCases.filter((x) => x.score < x.baseScore).length;
   const seeds = testCases.map((x) => x.seed);
   const scores = testCases.map((x) => x.score);
-  const score = calculateSum(scores);
   const baseScores = testCases.map((x) => x.baseScore);
-  const baseScore = calculateSum(baseScores);
-  const diff = calculateSum(testCases.map((x) => x.score - x.baseScore));
 
   return (
     <Grid container spacing={2}>
       <Grid item xs={5}>
         <Box m={2}>
-          <LambdaExecutor
-            onRunning={handleRunning}
-            onUpdating={handleUpdating}
-            onFlipTestMode={handleTestMode}
-            testCaseCount={testCases.length}
-            increased={increased}
-            noChange={noChange}
-            decreased={decreased}
-            score={score}
-            baseScore={baseScore}
-            diff={diff}
+          <Button variant="contained" size="small" onClick={handleRunning}>
+            run
+          </Button>
+          <Button variant="contained" size="small" onClick={handleUpdating}>
+            Update base
+          </Button>
+          <FormControlLabel
+            control={<Checkbox onChange={handleTestMode} />}
+            label="Test Mode"
           />
+          <Typography variant="body2">
+            Last update: <b>{lastRun}</b>
+          </Typography>
+          <Box m={1}>
+            <Stack direction="row" spacing={2}>
+              <SummaryTableIndex />
+              <SummaryTableSeries testCases={testCases} />
+            </Stack>
+          </Box>
         </Box>
       </Grid>
       <Grid item>

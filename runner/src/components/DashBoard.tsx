@@ -30,7 +30,7 @@ function DashBoard() {
       testCases.map(async (testCase) => {
         // 暫定
         const data = { input: testCase.input };
-        const response = await api.post("solve", data);
+        const response = await api.post("prod", data);
         return new TestCase({
           ...testCase,
           score: response.data.score,

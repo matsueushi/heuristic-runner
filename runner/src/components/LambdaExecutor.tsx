@@ -83,13 +83,13 @@ function LambdaExecutor({
             </Typography>
             <Divider />
             <Typography>
-              <b>{score}</b>
+              <b>{score.toLocaleString()}</b>
             </Typography>
             <Typography>
-              <b>{baseScore}</b>
+              <b>{baseScore.toLocaleString()}</b>
             </Typography>
             <Typography>
-              <b>{diff}</b>
+              <b>{diff.toLocaleString()}</b>
             </Typography>
           </Box>
         </Stack>

@@ -108,10 +108,6 @@ function DashBoard() {
     a.remove();
   }
 
-  const seeds = testCases.map((x) => x.seed);
-  const scores = testCases.map((x) => x.score);
-  const baseScores = testCases.map((x) => x.baseScore);
-
   return (
     <Grid container spacing={2}>
       <Grid item xs={5}>
@@ -139,7 +135,7 @@ function DashBoard() {
       </Grid>
       <Grid item>
         <Box m={2}>
-          <Graph seeds={seeds} scores={scores} baseScores={baseScores} />
+          <Graph testCases={testCases} />
         </Box>
       </Grid>
 

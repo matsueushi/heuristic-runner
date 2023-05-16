@@ -7,6 +7,7 @@ import {
   Stack,
   Checkbox,
   FormControlLabel,
+  // TextField,
 } from "@mui/material";
 
 import { api } from "../services/api";
@@ -112,6 +113,22 @@ function DashBoard() {
     <Grid container spacing={2}>
       <Grid item xs={5}>
         <Box m={2}>
+          {/* <Box>
+            <TextField
+              label="BaseURL"
+              id="baseurl"
+              defaultValue=""
+              size="small"
+              sx={{ width: "40ch" }}
+            />
+            <TextField
+              label="Resource"
+              id="resource"
+              defaultValue=""
+              size="small"
+              sx={{ width: "15ch" }}
+            />
+          </Box> */}
           <Button variant="contained" size="small" onClick={handleRunning}>
             run
           </Button>

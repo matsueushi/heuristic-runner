@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 function Header() {
   return (
     <AppBar position="static">
-      <Toolbar>
+      <Toolbar variant="dense">
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           Heuristic Runner
         </Typography>

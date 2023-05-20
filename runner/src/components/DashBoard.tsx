@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from "axios";
 
 import { useState } from "react";
-import { Alert, Box, Grid, Typography, Button, Stack } from "@mui/material";
+import { Alert, Box, Grid, Button, Stack } from "@mui/material";
 
 import Graph from "./Graph";
 import TestCaseTable from "./TestCaseTable";
@@ -31,14 +31,19 @@ interface DashBoardProps {
   testMode: boolean;
   baseUrl: string;
   resource: string;
+  onLastRunUpdate: (lastRun: string) => void;
 }
 
-function DashBoard({ testMode, baseUrl, resource }: DashBoardProps) {
+function DashBoard({
+  testMode,
+  baseUrl,
+  resource,
+  onLastRunUpdate,
+}: DashBoardProps) {
   const [errorMessage, setErrorMessage] = useState<string | undefined>(
     undefined
   );
   const [testCases, setTestCases] = useState<TestCase[]>([]);
-  const [lastRun, setLastRun] = useState<string | undefined>(undefined);
 
   function handleRunning() {
     setErrorMessage(undefined);
@@ -61,7 +66,7 @@ function DashBoard({ testMode, baseUrl, resource }: DashBoardProps) {
         .then((result) => setTestCases(result))
         .catch((err) => setErrorMessage(err.message));
     }
-    setLastRun(Date().toLocaleString());
+    onLastRunUpdate(Date().toLocaleString());
   }
 
   function handleUpdating() {
@@ -92,9 +97,6 @@ function DashBoard({ testMode, baseUrl, resource }: DashBoardProps) {
             Update base
           </Button>
           {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
-          <Typography variant="body2">
-            Last update: <b>{lastRun}</b>
-          </Typography>
           <Box m={1}>
             <Stack direction="row" spacing={2}>
               <SummaryTableIndex />

@@ -8,6 +8,7 @@ function App() {
   const [testMode, setTestMode] = useState<boolean>(false);
   const [baseUrl, setBaseUrl] = useState<string>("");
   const [resource, setResource] = useState<string>("");
+  const [lastRun, setLastRun] = useState<string>("");
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
 
   function handleDialogOpen() {
@@ -39,8 +40,13 @@ function App() {
         onClose={handleDialogClose}
         onUpdate={handleSettingsUpdate}
       />
-      <Header onOpen={handleDialogOpen} />
-      <DashBoard testMode={testMode} baseUrl={baseUrl} resource={resource} />
+      <Header lastRun={lastRun} onOpen={handleDialogOpen} />
+      <DashBoard
+        testMode={testMode}
+        baseUrl={baseUrl}
+        resource={resource}
+        onLastRunUpdate={setLastRun}
+      />
     </div>
   );
 }

@@ -1,5 +1,8 @@
+import axios, { AxiosInstance } from "axios";
+
 import { ChangeEvent, useState } from "react";
 import {
+  Alert,
   Box,
   Grid,
   Typography,
@@ -7,23 +10,55 @@ import {
   Stack,
   Checkbox,
   FormControlLabel,
-  // TextField,
+  TextField,
 } from "@mui/material";
 
-import { api } from "../services/api";
 import Graph from "./Graph";
 import TestCaseTable from "./TestCaseTable";
 import { TestCase } from "./TestCase";
 import SummaryTableIndex from "./SummaryTableIndex";
 import SummaryTableSeries from "./SummaryTableSeries";
 
+async function getUpdatedTestCase(
+  instance: AxiosInstance,
+  resource: string,
+  testCase: TestCase
+): Promise<TestCase> {
+  const data = { input: testCase.input };
+  const response = await instance.post(resource, data);
+  return new TestCase({
+    ...testCase,
+    score: response.data.score,
+    output: response.data.output,
+  });
+}
+
 function DashBoard() {
+  const [baseUrl, setBaseUrl] = useState<string>("");
+  const [resource, setResource] = useState<string>("");
+
+  const [errorMessage, setErrorMessage] = useState<string | undefined>(
+    undefined
+  );
   const [testCases, setTestCases] = useState<TestCase[]>([]);
   const [file, setFile] = useState<File>();
   const [testMode, setTestMode] = useState<boolean>(false);
   const [lastRun, setLastRun] = useState<string | undefined>(undefined);
 
+  function handleBaseUrlInput(
+    event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) {
+    setBaseUrl(event.target.value);
+  }
+
+  function handleResourceInput(
+    event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) {
+    setResource(event.target.value);
+  }
+
   function handleRunning() {
+    setErrorMessage(undefined);
     if (testMode) {
       setTestCases(
         testCases.map((testCase) => {
@@ -34,18 +69,14 @@ function DashBoard() {
         })
       );
     } else {
+      const instance = axios.create({ baseURL: baseUrl });
       Promise.all(
-        testCases.map(async (testCase) => {
-          // 暫定
-          const data = { input: testCase.input };
-          const response = await api.post("prod", data);
-          return new TestCase({
-            ...testCase,
-            score: response.data.score,
-            output: response.data.output,
-          });
-        })
-      ).then((result) => setTestCases(result));
+        testCases.map(async (testCase) =>
+          getUpdatedTestCase(instance, resource, testCase)
+        )
+      )
+        .then((result) => setTestCases(result))
+        .catch((err) => setErrorMessage(err.message));
     }
     setLastRun(Date().toLocaleString());
   }
@@ -113,13 +144,14 @@ function DashBoard() {
     <Grid container spacing={2}>
       <Grid item xs={5}>
         <Box m={2}>
-          {/* <Box>
+          <Box>
             <TextField
               label="BaseURL"
               id="baseurl"
               defaultValue=""
               size="small"
               sx={{ width: "40ch" }}
+              onChange={handleBaseUrlInput}
             />
             <TextField
               label="Resource"
@@ -127,8 +159,9 @@ function DashBoard() {
               defaultValue=""
               size="small"
               sx={{ width: "15ch" }}
+              onChange={handleResourceInput}
             />
-          </Box> */}
+          </Box>
           <Button variant="contained" size="small" onClick={handleRunning}>
             run
           </Button>
@@ -139,6 +172,7 @@ function DashBoard() {
             control={<Checkbox onChange={handleTestMode} />}
             label="Test Mode"
           />
+          {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
           <Typography variant="body2">
             Last update: <b>{lastRun}</b>
           </Typography>

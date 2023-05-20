@@ -17,46 +17,26 @@ interface SettingsDialogProps {
   resource: string;
   testMode: boolean;
   onClose: () => void;
-  onUpdate: (baseUrl: string, resouce: string, testMode: boolean) => void;
+  onUpdate: (testMode: boolean, baseUrl: string, resouce: string) => void;
 }
 
 function SettingsDialog({
   open,
+  testMode,
   baseUrl,
   resource,
-  testMode,
   onClose,
   onUpdate,
 }: SettingsDialogProps) {
+  const [newTestMode, setNewTestMode] = useState<boolean>(testMode);
   const [newBaseUrl, setNewBaseUrl] = useState<string>(baseUrl);
   const [newResource, setNewResource] = useState<string>(resource);
-  const [newTestMode, setNewTestMode] = useState<boolean>(testMode);
 
   return (
     <>
       <Dialog open={open}>
         <DialogTitle>Settings</DialogTitle>
         <DialogContent>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="base"
-            label="Base URL"
-            fullWidth
-            variant="standard"
-            defaultValue={baseUrl}
-            onChange={(event) => setNewBaseUrl(event.target.value)}
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="resource"
-            label="Resource"
-            fullWidth
-            variant="standard"
-            defaultValue={resource}
-            onChange={(event) => setNewResource(event.target.value)}
-          />
           <FormControlLabel
             control={
               <Checkbox
@@ -66,11 +46,32 @@ function SettingsDialog({
             }
             label="Test Mode"
           />
+          <TextField
+            autoFocus
+            margin="dense"
+            id="base"
+            label="Base URL"
+            fullWidth
+            variant="standard"
+            defaultValue={baseUrl}
+            onChange={(event) => setNewBaseUrl(event.target.value)}
+            disabled={newTestMode}
+          />
+          <TextField
+            margin="dense"
+            id="resource"
+            label="Resource"
+            fullWidth
+            variant="standard"
+            defaultValue={resource}
+            onChange={(event) => setNewResource(event.target.value)}
+            disabled={newTestMode}
+          />
         </DialogContent>
         <DialogActions>
           <Button onClick={onClose}>Cancel</Button>
           <Button
-            onClick={() => onUpdate(newBaseUrl, newResource, newTestMode)}
+            onClick={() => onUpdate(newTestMode, newBaseUrl, newResource)}
           >
             Ok
           </Button>

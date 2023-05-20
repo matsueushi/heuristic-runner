@@ -5,9 +5,9 @@ import Header from "./components/Header";
 import DashBoard from "./components/DashBoard";
 
 function App() {
+  const [testMode, setTestMode] = useState<boolean>(false);
   const [baseUrl, setBaseUrl] = useState<string>("");
   const [resource, setResource] = useState<string>("");
-  const [testMode, setTestMode] = useState<boolean>(false);
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
 
   function handleDialogOpen() {
@@ -19,13 +19,13 @@ function App() {
   }
 
   function handleSettingsUpdate(
+    testMode: boolean,
     baseUrl: string,
-    resource: string,
-    testMode: boolean
+    resource: string
   ) {
+    setTestMode(testMode);
     setBaseUrl(baseUrl);
     setResource(resource);
-    setTestMode(testMode);
     setDialogOpen(false);
   }
 
@@ -33,9 +33,9 @@ function App() {
     <div className="App">
       <SettingsDialog
         open={dialogOpen}
+        testMode={testMode}
         baseUrl={baseUrl}
         resource={resource}
-        testMode={testMode}
         onClose={handleDialogClose}
         onUpdate={handleSettingsUpdate}
       />

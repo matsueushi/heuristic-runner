@@ -14,3 +14,12 @@ export class TestCase {
     if (initializer.baseScore) this.baseScore = initializer.baseScore;
   }
 }
+
+function convertToTestCase(item: any): TestCase {
+  return new TestCase(item);
+}
+
+export function convertToTestCases(data: any[]): TestCase[] {
+  const testCases: TestCase[] = data.map(convertToTestCase);
+  return testCases;
+}

@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from "axios";
 
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import { Alert, Box, Grid, Typography, Button, Stack } from "@mui/material";
 
 import Graph from "./Graph";
@@ -38,7 +38,6 @@ function DashBoard({ testMode, baseUrl, resource }: DashBoardProps) {
     undefined
   );
   const [testCases, setTestCases] = useState<TestCase[]>([]);
-  const [file, setFile] = useState<File>();
   const [lastRun, setLastRun] = useState<string | undefined>(undefined);
 
   function handleRunning() {
@@ -72,62 +71,24 @@ function DashBoard({ testMode, baseUrl, resource }: DashBoardProps) {
     setTestCases(updatedTestCases);
   }
 
-  function handleFileChanging(e: ChangeEvent<HTMLInputElement>) {
-    if (e.target.files) {
-      setFile(e.target.files[0]);
-    }
-  }
-
-  function convertToTestCases(data: any[]): TestCase[] {
-    const testCases: TestCase[] = data.map(convertToTestCase);
-    return testCases;
-  }
-
-  function convertToTestCase(item: any): TestCase {
-    return new TestCase(item);
-  }
-
-  function handleLoading() {
-    if (!file) {
-      return;
-    }
-    if (file.type != "application/json") {
-      return;
-    }
-    file
-      .text()
-      .then(JSON.parse)
-      .then(convertToTestCases)
-      .then(setTestCases)
-      // .then((res) => console.log(res))
-      .catch((err) => console.error(err));
-  }
-
-  function handleDownloading() {
-    const data = JSON.stringify(testCases, null, " ");
-    const fileType = "text/json";
-    const blob = new Blob([data], { type: fileType });
-
-    const a = document.createElement("a");
-    a.download = "test_cases.json";
-    a.href = window.URL.createObjectURL(blob);
-    const clickEvt = new MouseEvent("click", {
-      view: window,
-      bubbles: true,
-      cancelable: true,
-    });
-    a.dispatchEvent(clickEvt);
-    a.remove();
-  }
-
   return (
     <Grid container spacing={2}>
       <Grid item xs={5}>
         <Box m={2}>
-          <Button variant="contained" size="small" onClick={handleRunning}>
+          <Button
+            variant="contained"
+            size="small"
+            onClick={handleRunning}
+            disabled={testCases.length === 0}
+          >
             run
           </Button>
-          <Button variant="contained" size="small" onClick={handleUpdating}>
+          <Button
+            variant="contained"
+            size="small"
+            onClick={handleUpdating}
+            disabled={testCases.length === 0}
+          >
             Update base
           </Button>
           {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
@@ -150,12 +111,7 @@ function DashBoard({ testMode, baseUrl, resource }: DashBoardProps) {
 
       <Grid item xs={12}>
         <Box m={2}>
-          <TestCaseTable
-            testCases={testCases}
-            onLoading={handleLoading}
-            onFileChanging={handleFileChanging}
-            onDownloading={handleDownloading}
-          />
+          <TestCaseTable testCases={testCases} onLoading={setTestCases} />
         </Box>
       </Grid>
     </Grid>

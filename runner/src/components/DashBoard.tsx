@@ -19,6 +19,10 @@ import { TestCase } from "./TestCase";
 import SummaryTableIndex from "./SummaryTableIndex";
 import SummaryTableSeries from "./SummaryTableSeries";
 
+function createAxiomInstance(baseUrl: string): AxiosInstance {
+  return axios.create({ baseURL: baseUrl });
+}
+
 async function getUpdatedTestCase(
   instance: AxiosInstance,
   resource: string,
@@ -69,7 +73,7 @@ function DashBoard() {
         })
       );
     } else {
-      const instance = axios.create({ baseURL: baseUrl });
+      const instance = createAxiomInstance(baseUrl);
       Promise.all(
         testCases.map(async (testCase) =>
           getUpdatedTestCase(instance, resource, testCase)

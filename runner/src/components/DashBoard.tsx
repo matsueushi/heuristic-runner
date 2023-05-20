@@ -78,7 +78,7 @@ function DashBoard({
 
   return (
     <Grid container spacing={2}>
-      <Grid item xs={5}>
+      <Grid item>
         <Box m={2}>
           <Button
             variant="contained"

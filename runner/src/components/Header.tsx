@@ -13,14 +13,12 @@ function Header({ lastRun, onOpen }: HeaderProps) {
         <Typography variant="h6" component="div">
           Heuristic Runner
         </Typography>
-        <Typography
-          variant="subtitle2"
-          component="div"
-          m={1}
-          sx={{ flexGrow: 1 }}
-        >
-          {"(Last Run: " + lastRun + ")"}
-        </Typography>
+        {lastRun != "" && (
+          <Typography variant="subtitle2" component="div" m={1}>
+            {"(Last Run: " + lastRun + ")"}
+          </Typography>
+        )}
+        <Typography sx={{ flexGrow: 1 }}></Typography>
         <IconButton onClick={onOpen}>
           <SettingsIcon />
         </IconButton>

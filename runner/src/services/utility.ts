@@ -1,7 +1,3 @@
-export function copyToClipboard(text: string) {
-  navigator.clipboard.writeText(text);
-}
-
 export function formatLongText(text: string): string {
   const th = 15;
   if (text.length > th) {

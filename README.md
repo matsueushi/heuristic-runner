@@ -1,1 +1,1 @@
-HeuristicRunner
+heuristic-runner

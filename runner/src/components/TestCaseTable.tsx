@@ -27,24 +27,57 @@ function TestCaseTable({
       {
         accessorKey: "score",
         header: "Score",
+        Cell: ({ cell }) => {
+          return formatLongText((cell.getValue() as number).toLocaleString());
+        },
+        muiTableHeadCellProps: {
+          align: "right",
+        },
+        muiTableBodyCellProps: {
+          align: "right",
+        },
       },
       {
         accessorKey: "baseScore",
         header: "BaseScore",
+        Cell: ({ cell }) => {
+          return formatLongText((cell.getValue() as number).toLocaleString());
+        },
+        muiTableHeadCellProps: {
+          align: "right",
+        },
+        muiTableBodyCellProps: {
+          align: "right",
+        },
       },
       {
         accessorFn: (row) => row.score - row.baseScore,
         header: "Diff",
+        Cell: ({ cell }) => {
+          return formatLongText((cell.getValue() as number).toLocaleString());
+        },
+        muiTableHeadCellProps: {
+          align: "right",
+        },
+        muiTableBodyCellProps: {
+          align: "right",
+        },
       },
       {
-        accessorFn: (row) => formatLongText(row.input),
+        accessorFn: (row) => row.input,
         enableClickToCopy: true,
         header: "Input",
+        Cell: ({ cell }) => {
+          return formatLongText(cell.getValue() as string);
+        },
       },
       {
-        accessorFn: (row) => formatLongText(row.output),
+        accessorFn: (row) => row.output,
         enableClickToCopy: true,
         header: "Output",
+        Cell: ({ cell }) => {
+          return formatLongText(cell.getValue() as string);
+        },
       },
     ],
     []
@@ -58,10 +91,10 @@ function TestCaseTable({
         <Box>
           <input type="file" id="input" onChange={onFileChanging} />
           <Button variant="contained" size="small" onClick={onLoading}>
-            load
+            Load
           </Button>
           <Button variant="contained" size="small" onClick={onDownloading}>
-            download
+            Download
           </Button>
         </Box>
       )}

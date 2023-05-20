@@ -9,6 +9,7 @@ import {
   Legend,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
+import { TestCase } from "./TestCase";
 
 ChartJS.register(
   CategoryScale,
@@ -21,12 +22,14 @@ ChartJS.register(
 );
 
 interface GraphProp {
-  seeds: number[];
-  scores: number[];
-  baseScores: number[];
+  testCases: TestCase[];
 }
 
-export function Graph({ seeds, scores, baseScores }: GraphProp) {
+export function Graph({ testCases }: GraphProp) {
+  const seeds = testCases.map((x) => x.seed);
+  const scores = testCases.map((x) => x.score);
+  const baseScores = testCases.map((x) => x.baseScore);
+
   const options = {
     maintainAspectRatio: false,
     responsive: true,

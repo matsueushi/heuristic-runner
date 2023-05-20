@@ -1,17 +1,7 @@
 import axios, { AxiosInstance } from "axios";
 
 import { ChangeEvent, useState } from "react";
-import {
-  Alert,
-  Box,
-  Grid,
-  Typography,
-  Button,
-  Stack,
-  Checkbox,
-  FormControlLabel,
-  TextField,
-} from "@mui/material";
+import { Alert, Box, Grid, Typography, Button, Stack } from "@mui/material";
 
 import Graph from "./Graph";
 import TestCaseTable from "./TestCaseTable";
@@ -37,29 +27,19 @@ async function getUpdatedTestCase(
   });
 }
 
-function DashBoard() {
-  const [baseUrl, setBaseUrl] = useState<string>("");
-  const [resource, setResource] = useState<string>("");
+interface DashBoardProps {
+  testMode: boolean;
+  baseUrl: string;
+  resource: string;
+}
 
+function DashBoard({ testMode, baseUrl, resource }: DashBoardProps) {
   const [errorMessage, setErrorMessage] = useState<string | undefined>(
     undefined
   );
   const [testCases, setTestCases] = useState<TestCase[]>([]);
   const [file, setFile] = useState<File>();
-  const [testMode, setTestMode] = useState<boolean>(false);
   const [lastRun, setLastRun] = useState<string | undefined>(undefined);
-
-  function handleBaseUrlInput(
-    event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-  ) {
-    setBaseUrl(event.target.value);
-  }
-
-  function handleResourceInput(
-    event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-  ) {
-    setResource(event.target.value);
-  }
 
   function handleRunning() {
     setErrorMessage(undefined);
@@ -90,10 +70,6 @@ function DashBoard() {
       return new TestCase({ ...testCase, baseScore: testCase.score });
     });
     setTestCases(updatedTestCases);
-  }
-
-  function handleTestMode() {
-    setTestMode(!testMode);
   }
 
   function handleFileChanging(e: ChangeEvent<HTMLInputElement>) {
@@ -148,34 +124,12 @@ function DashBoard() {
     <Grid container spacing={2}>
       <Grid item xs={5}>
         <Box m={2}>
-          <Box>
-            <TextField
-              label="BaseURL"
-              id="baseurl"
-              defaultValue=""
-              size="small"
-              sx={{ width: "40ch" }}
-              onChange={handleBaseUrlInput}
-            />
-            <TextField
-              label="Resource"
-              id="resource"
-              defaultValue=""
-              size="small"
-              sx={{ width: "15ch" }}
-              onChange={handleResourceInput}
-            />
-          </Box>
           <Button variant="contained" size="small" onClick={handleRunning}>
             run
           </Button>
           <Button variant="contained" size="small" onClick={handleUpdating}>
             Update base
           </Button>
-          <FormControlLabel
-            control={<Checkbox onChange={handleTestMode} />}
-            label="Test Mode"
-          />
           {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
           <Typography variant="body2">
             Last update: <b>{lastRun}</b>

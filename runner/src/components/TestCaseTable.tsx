@@ -91,10 +91,10 @@ function TestCaseTable({
         <Box>
           <input type="file" id="input" onChange={onFileChanging} />
           <Button variant="contained" size="small" onClick={onLoading}>
-            load
+            Load
           </Button>
           <Button variant="contained" size="small" onClick={onDownloading}>
-            download
+            Download
           </Button>
         </Box>
       )}

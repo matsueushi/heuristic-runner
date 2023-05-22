@@ -58,7 +58,20 @@ function TestCaseTable({ testCases, onLoading }: TestCaseTableProps) {
         header: "Diff",
         size: 120,
         Cell: ({ cell }) => (
-          <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+          <Box
+            sx={(theme) => ({
+              backgroundColor:
+                cell.getValue<number>() < 0
+                  ? theme.palette.info.dark
+                  : cell.getValue<number>() === 0
+                  ? theme.palette.success.dark
+                  : theme.palette.warning.dark,
+              display: "flex",
+              justifyContent: "flex-end",
+              borderRadius: "0.2rem",
+              p: "0.2rem",
+            })}
+          >
             {formatLongText(cell.getValue<number>().toLocaleString())}
           </Box>
         ),

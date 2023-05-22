@@ -4,6 +4,7 @@ import MaterialReactTable, { MRT_ColumnDef } from "material-react-table";
 import { formatLongText } from "../services/utility";
 import { TestCase } from "./TestCase";
 import FileIOBox from "./FileIOBox";
+import { Box } from "@mui/material";
 
 interface TestCaseTableProps {
   testCases: TestCase[];
@@ -16,43 +17,52 @@ function TestCaseTable({ testCases, onLoading }: TestCaseTableProps) {
       {
         accessorKey: "seed",
         header: "Seed",
+        size: 30,
+        Cell: ({ cell }) => (
+          <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+            {formatLongText(cell.getValue<number>().toLocaleString())}
+          </Box>
+        ),
+        muiTableHeadCellProps: {
+          align: "right",
+        },
       },
       {
         accessorKey: "score",
         header: "Score",
-        Cell: ({ cell }) => {
-          return formatLongText(cell.getValue<number>().toLocaleString());
-        },
+        size: 120,
+        Cell: ({ cell }) => (
+          <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+            {formatLongText(cell.getValue<number>().toLocaleString())}
+          </Box>
+        ),
         muiTableHeadCellProps: {
-          align: "right",
-        },
-        muiTableBodyCellProps: {
           align: "right",
         },
       },
       {
         accessorKey: "baseScore",
         header: "BaseScore",
-        Cell: ({ cell }) => {
-          return formatLongText(cell.getValue<number>().toLocaleString());
-        },
+        size: 120,
+        Cell: ({ cell }) => (
+          <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+            {formatLongText(cell.getValue<number>().toLocaleString())}
+          </Box>
+        ),
         muiTableHeadCellProps: {
-          align: "right",
-        },
-        muiTableBodyCellProps: {
           align: "right",
         },
       },
       {
         accessorFn: (row) => row.score - row.baseScore,
         header: "Diff",
-        Cell: ({ cell }) => {
-          return formatLongText(cell.getValue<number>().toLocaleString());
-        },
+        size: 120,
+        Cell: ({ cell }) => (
+          <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+            {formatLongText(cell.getValue<number>().toLocaleString())}
+          </Box>
+        ),
         muiTableHeadCellProps: {
-          align: "right",
-        },
-        muiTableBodyCellProps: {
           align: "right",
         },
       },
@@ -60,17 +70,23 @@ function TestCaseTable({ testCases, onLoading }: TestCaseTableProps) {
         accessorFn: (row) => row.input,
         enableClickToCopy: true,
         header: "Input",
-        Cell: ({ cell }) => {
-          return formatLongText(cell.getValue<string>());
-        },
+        size: 120,
+        Cell: ({ cell }) => (
+          <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+            {formatLongText(cell.getValue<string>())}
+          </Box>
+        ),
       },
       {
         accessorFn: (row) => row.output,
         enableClickToCopy: true,
         header: "Output",
-        Cell: ({ cell }) => {
-          return formatLongText(cell.getValue<string>());
-        },
+        size: 120,
+        Cell: ({ cell }) => (
+          <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+            {formatLongText(cell.getValue<string>())}
+          </Box>
+        ),
       },
     ],
     []

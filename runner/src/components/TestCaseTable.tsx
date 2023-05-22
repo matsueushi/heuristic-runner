@@ -21,7 +21,7 @@ function TestCaseTable({ testCases, onLoading }: TestCaseTableProps) {
         accessorKey: "score",
         header: "Score",
         Cell: ({ cell }) => {
-          return formatLongText((cell.getValue() as number).toLocaleString());
+          return formatLongText(cell.getValue<number>().toLocaleString());
         },
         muiTableHeadCellProps: {
           align: "right",
@@ -34,7 +34,7 @@ function TestCaseTable({ testCases, onLoading }: TestCaseTableProps) {
         accessorKey: "baseScore",
         header: "BaseScore",
         Cell: ({ cell }) => {
-          return formatLongText((cell.getValue() as number).toLocaleString());
+          return formatLongText(cell.getValue<number>().toLocaleString());
         },
         muiTableHeadCellProps: {
           align: "right",
@@ -47,7 +47,7 @@ function TestCaseTable({ testCases, onLoading }: TestCaseTableProps) {
         accessorFn: (row) => row.score - row.baseScore,
         header: "Diff",
         Cell: ({ cell }) => {
-          return formatLongText((cell.getValue() as number).toLocaleString());
+          return formatLongText(cell.getValue<number>().toLocaleString());
         },
         muiTableHeadCellProps: {
           align: "right",
@@ -61,7 +61,7 @@ function TestCaseTable({ testCases, onLoading }: TestCaseTableProps) {
         enableClickToCopy: true,
         header: "Input",
         Cell: ({ cell }) => {
-          return formatLongText(cell.getValue() as string);
+          return formatLongText(cell.getValue<string>());
         },
       },
       {
@@ -69,7 +69,7 @@ function TestCaseTable({ testCases, onLoading }: TestCaseTableProps) {
         enableClickToCopy: true,
         header: "Output",
         Cell: ({ cell }) => {
-          return formatLongText(cell.getValue() as string);
+          return formatLongText(cell.getValue<string>());
         },
       },
     ],

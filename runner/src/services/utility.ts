@@ -1,5 +1,5 @@
 export function formatLongText(text: string): string {
-  const th = 15;
+  const th = 16;
   if (text.length > th) {
     return text.substring(0, th) + "...";
   } else {

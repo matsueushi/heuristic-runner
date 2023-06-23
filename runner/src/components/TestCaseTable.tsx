@@ -1,65 +1,81 @@
-import { useMemo, ChangeEvent } from "react";
+import { useMemo } from "react";
 import MaterialReactTable, { MRT_ColumnDef } from "material-react-table";
 
 import { formatLongText } from "../services/utility";
 import { TestCase } from "./TestCase";
-import { Box, Button } from "@mui/material";
+import FileIOBox from "./FileIOBox";
+import { Box } from "@mui/material";
 
 interface TestCaseTableProps {
   testCases: TestCase[];
-  onLoading: () => void;
-  onFileChanging: (e: ChangeEvent<HTMLInputElement>) => void;
-  onDownloading: () => void;
+  onLoading: (testCases: TestCase[]) => void;
 }
 
-function TestCaseTable({
-  testCases,
-  onLoading,
-  onFileChanging,
-  onDownloading,
-}: TestCaseTableProps) {
+function TestCaseTable({ testCases, onLoading }: TestCaseTableProps) {
   const columns = useMemo<MRT_ColumnDef<TestCase>[]>(
     () => [
       {
         accessorKey: "seed",
         header: "Seed",
+        size: 30,
+        Cell: ({ cell }) => (
+          <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+            {formatLongText(cell.getValue<number>().toLocaleString())}
+          </Box>
+        ),
+        muiTableHeadCellProps: {
+          align: "right",
+        },
       },
       {
         accessorKey: "score",
         header: "Score",
-        Cell: ({ cell }) => {
-          return formatLongText((cell.getValue() as number).toLocaleString());
-        },
+        size: 120,
+        Cell: ({ cell }) => (
+          <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+            {formatLongText(cell.getValue<number>().toLocaleString())}
+          </Box>
+        ),
         muiTableHeadCellProps: {
-          align: "right",
-        },
-        muiTableBodyCellProps: {
           align: "right",
         },
       },
       {
         accessorKey: "baseScore",
         header: "BaseScore",
-        Cell: ({ cell }) => {
-          return formatLongText((cell.getValue() as number).toLocaleString());
-        },
+        size: 120,
+        Cell: ({ cell }) => (
+          <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+            {formatLongText(cell.getValue<number>().toLocaleString())}
+          </Box>
+        ),
         muiTableHeadCellProps: {
-          align: "right",
-        },
-        muiTableBodyCellProps: {
           align: "right",
         },
       },
       {
         accessorFn: (row) => row.score - row.baseScore,
         header: "Diff",
-        Cell: ({ cell }) => {
-          return formatLongText((cell.getValue() as number).toLocaleString());
-        },
+        size: 120,
+        Cell: ({ cell }) => (
+          <Box
+            sx={(theme) => ({
+              backgroundColor:
+                cell.getValue<number>() < 0
+                  ? theme.palette.info.dark
+                  : cell.getValue<number>() === 0
+                  ? theme.palette.success.dark
+                  : theme.palette.warning.dark,
+              display: "flex",
+              justifyContent: "flex-end",
+              borderRadius: "0.2rem",
+              p: "0.2rem",
+            })}
+          >
+            {formatLongText(cell.getValue<number>().toLocaleString())}
+          </Box>
+        ),
         muiTableHeadCellProps: {
-          align: "right",
-        },
-        muiTableBodyCellProps: {
           align: "right",
         },
       },
@@ -67,17 +83,23 @@ function TestCaseTable({
         accessorFn: (row) => row.input,
         enableClickToCopy: true,
         header: "Input",
-        Cell: ({ cell }) => {
-          return formatLongText(cell.getValue() as string);
-        },
+        size: 120,
+        Cell: ({ cell }) => (
+          <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+            {formatLongText(cell.getValue<string>())}
+          </Box>
+        ),
       },
       {
         accessorFn: (row) => row.output,
         enableClickToCopy: true,
         header: "Output",
-        Cell: ({ cell }) => {
-          return formatLongText(cell.getValue() as string);
-        },
+        size: 120,
+        Cell: ({ cell }) => (
+          <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+            {formatLongText(cell.getValue<string>())}
+          </Box>
+        ),
       },
     ],
     []
@@ -87,16 +109,9 @@ function TestCaseTable({
     <MaterialReactTable
       columns={columns}
       data={testCases}
+      initialState={{ density: "compact" }}
       renderTopToolbarCustomActions={() => (
-        <Box>
-          <input type="file" id="input" onChange={onFileChanging} />
-          <Button variant="contained" size="small" onClick={onLoading}>
-            Load
-          </Button>
-          <Button variant="contained" size="small" onClick={onDownloading}>
-            Download
-          </Button>
-        </Box>
+        <FileIOBox testCases={testCases} onLoading={onLoading} />
       )}
     />
   );

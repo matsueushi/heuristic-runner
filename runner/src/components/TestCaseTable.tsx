@@ -4,20 +4,26 @@ import MaterialReactTable, { MRT_ColumnDef } from "material-react-table";
 import { formatLongText } from "../services/utility";
 import { TestCase } from "./TestCase";
 import FileIOBox from "./FileIOBox";
-import { Box } from "@mui/material";
+import { Box, IconButton } from "@mui/material";
+import { PlayArrow } from "@mui/icons-material";
 
 interface TestCaseTableProps {
   testCases: TestCase[];
   onLoading: (testCases: TestCase[]) => void;
+  onSingleUpdating: (id: string) => void;
 }
 
-function TestCaseTable({ testCases, onLoading }: TestCaseTableProps) {
+function TestCaseTable({
+  testCases,
+  onLoading,
+  onSingleUpdating,
+}: TestCaseTableProps) {
   const columns = useMemo<MRT_ColumnDef<TestCase>[]>(
     () => [
       {
         accessorKey: "seed",
         header: "Seed",
-        size: 30,
+        size: 20,
         Cell: ({ cell }) => (
           <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
             {formatLongText(cell.getValue<number>().toLocaleString())}
@@ -112,6 +118,18 @@ function TestCaseTable({ testCases, onLoading }: TestCaseTableProps) {
       initialState={{ density: "compact" }}
       renderTopToolbarCustomActions={() => (
         <FileIOBox testCases={testCases} onLoading={onLoading} />
+      )}
+      enableRowActions
+      renderRowActions={({ row }) => (
+        <Box sx={{ display: "flex" }}>
+          <IconButton
+            onClick={() => {
+              onSingleUpdating(row.id);
+            }}
+          >
+            <PlayArrow />
+          </IconButton>
+        </Box>
       )}
     />
   );

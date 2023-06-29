@@ -14,17 +14,30 @@ function createAxiomInstance(baseUrl: string): AxiosInstance {
 }
 
 async function getUpdatedTestCase(
+  testMode: boolean,
   instance: AxiosInstance,
   resource: string,
-  testCase: TestCase
+  testCase: TestCase,
+  id?: string
 ): Promise<TestCase> {
-  const data = { input: testCase.input };
-  const response = await instance.post(resource, data);
-  return new TestCase({
-    ...testCase,
-    score: response.data.score,
-    output: response.data.output,
-  });
+  if (typeof id === "string" && testCase.seed.toString() !== id) {
+    return testCase;
+  }
+
+  if (testMode) {
+    return new TestCase({
+      ...testCase,
+      score: Math.round(Math.random() * 100),
+    });
+  } else {
+    const data = { input: testCase.input };
+    const response = await instance.post(resource, data);
+    return new TestCase({
+      ...testCase,
+      score: response.data.score,
+      output: response.data.output,
+    });
+  }
 }
 
 interface DashBoardProps {
@@ -47,25 +60,15 @@ function DashBoard({
 
   function handleRunning() {
     setErrorMessage(undefined);
-    if (testMode) {
-      setTestCases(
-        testCases.map((testCase) => {
-          return new TestCase({
-            ...testCase,
-            score: Math.round(Math.random() * 100),
-          });
-        })
-      );
-    } else {
-      const instance = createAxiomInstance(baseUrl);
-      Promise.all(
-        testCases.map(async (testCase) =>
-          getUpdatedTestCase(instance, resource, testCase)
-        )
+    const instance = createAxiomInstance(baseUrl);
+    Promise.all(
+      testCases.map(async (testCase) =>
+        getUpdatedTestCase(testMode, instance, resource, testCase)
       )
-        .then((result) => setTestCases(result))
-        .catch((err) => setErrorMessage(err.message));
-    }
+    )
+      .then((result) => setTestCases(result))
+      .catch((err) => setErrorMessage(err.message));
+
     onLastRunUpdate(Date().toLocaleString());
   }
 
@@ -74,6 +77,20 @@ function DashBoard({
       return new TestCase({ ...testCase, baseScore: testCase.score });
     });
     setTestCases(updatedTestCases);
+  }
+
+  function handleSingleUpdating(id: string) {
+    setErrorMessage(undefined);
+    const instance = createAxiomInstance(baseUrl);
+    Promise.all(
+      testCases.map(async (testCase) =>
+        getUpdatedTestCase(testMode, instance, resource, testCase, id)
+      )
+    )
+      .then((result) => setTestCases(result))
+      .catch((err) => setErrorMessage(err.message));
+
+    onLastRunUpdate(Date().toLocaleString());
   }
 
   return (
@@ -113,7 +130,11 @@ function DashBoard({
 
       <Grid item xs={12}>
         <Box m={2}>
-          <TestCaseTable testCases={testCases} onLoading={setTestCases} />
+          <TestCaseTable
+            testCases={testCases}
+            onLoading={setTestCases}
+            onSingleUpdating={handleSingleUpdating}
+          />
         </Box>
       </Grid>
     </Grid>
